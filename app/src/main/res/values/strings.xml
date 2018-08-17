@@ -1,4 +1,8 @@
 <resources>
+
+    <string name="facebook_app_id">461313697707364</string>
+    <string name="fb_login_protocol_scheme">fb461313697707364</string>
+
     <string name="app_name">BookArcade</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
