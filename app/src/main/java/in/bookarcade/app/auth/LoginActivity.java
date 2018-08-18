@@ -1,7 +1,9 @@
 package in.bookarcade.app.auth;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -48,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText email;
     private TextInputEditText password;
     private ProgressBar progressBar;
+    private TextView tv_resetPassword;
     private RelativeLayout layout;
 
     // External types
@@ -77,8 +81,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initViews() {
         layout = findViewById(R.id.activity_login);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
-        params.addRule(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
 
         // Buttons
         btn_signup = findViewById(R.id.btn_register);
@@ -91,8 +93,26 @@ public class LoginActivity extends AppCompatActivity {
         // Text Widgets
         email = findViewById(R.id.et_email);
         password = findViewById(R.id.et_password);
+        tv_resetPassword = findViewById(R.id.tv_resetPassword);
 
         // Listeners
+        tv_resetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email_id = email.getText().toString();
+                if (email_id.isEmpty()) {
+                    Snackbar snackbar = Snackbar.make(layout, "Enter a valid email address", Snackbar.LENGTH_SHORT);
+                    View snackbarView = snackbar.getView();
+                    snackbarView.setBackgroundColor(Color.WHITE);
+                    TextView textView = snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    snackbar.show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Password reset email sent", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
