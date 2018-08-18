@@ -66,31 +66,31 @@ public class LoginActivity extends AppCompatActivity {
         mainInit();
     }
 
-    private void preInit () {
+    private void preInit() {
         mAuth = FirebaseAuth.getInstance();
 
     }
 
-    private void mainInit () {
+    private void mainInit() {
         initializeFacebookLogin();
     }
 
-    private void initViews () {
+    private void initViews() {
         layout = findViewById(R.id.activity_login);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100, 100);
         params.addRule(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
 
         // Buttons
-        btn_signup = (Button) findViewById(R.id.btn_register);
-        btn_login = (Button) findViewById(R.id.btn_login);
-        facebookLogin = (Button) findViewById(R.id.btn_facebook);
+        btn_signup = findViewById(R.id.btn_register);
+        btn_login = findViewById(R.id.btn_login);
+        facebookLogin = findViewById(R.id.btn_facebook);
 
         // ProgressBar
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.progress_bar);
 
         // Text Widgets
-        email = (TextInputEditText) findViewById(R.id.et_email);
-        password = (TextInputEditText) findViewById(R.id.et_password);
+        email = findViewById(R.id.et_email);
+        password = findViewById(R.id.et_password);
 
         // Listeners
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -122,8 +122,8 @@ public class LoginActivity extends AppCompatActivity {
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 progressBar.setVisibility(View.GONE);
                                 mUser = mAuth.getCurrentUser();
-                                mUser.reload();
                                 if (mUser != null) {
+                                    mUser.reload();
                                     if (mUser.isEmailVerified()) {
                                         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                                         finish();
@@ -140,12 +140,12 @@ public class LoginActivity extends AppCompatActivity {
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             progressBar.setVisibility(View.INVISIBLE);
                             btn_login.setVisibility(View.VISIBLE);
-                            Toast.makeText(LoginActivity.this, "Sign In: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             progressBar.setVisibility(View.VISIBLE);
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             progressBar.setVisibility(View.INVISIBLE);
             btn_login.setVisibility(View.VISIBLE);
@@ -196,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             boolean newUser = task.getResult().getAdditionalUserInfo().isNewUser();
                             mUser = mAuth.getCurrentUser();
-                            if (newUser) {
+                            if (newUser && mUser != null) {
                                 String email = mUser.getEmail();
                                 String firstName = mUser.getDisplayName().split(" ")[0];
                                 String lastName = mUser.getDisplayName().split(" ")[1];

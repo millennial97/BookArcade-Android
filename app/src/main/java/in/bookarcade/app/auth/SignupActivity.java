@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,8 +16,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -48,6 +51,7 @@ public class SignupActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button sign_up;
     private Intent i;
+    private ActionBar actionBar;
 
     // External types
     private FirebaseAuth mAuth;
@@ -65,7 +69,10 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void preInit() {
-        this.getSupportActionBar().setHomeAsUpIndicator(android.R.drawable.ic_menu_close_clear_cancel);
+        actionBar = this.getSupportActionBar();
+        if (actionBar != null)
+            actionBar.setHomeAsUpIndicator(android.R.drawable.ic_menu_close_clear_cancel);
+
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -74,23 +81,26 @@ public class SignupActivity extends AppCompatActivity {
 
     private void initViews() {
         // ProgressBar
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.progress_bar);
 
         // Text Widgets
-        firstName = (EditText) findViewById(R.id.firstname);
-        lastName = (EditText) findViewById(R.id.lastname);
-        emailId = (EditText) findViewById(R.id.email);
-        password1 = (EditText) findViewById(R.id.password);
-        password2 = (EditText) findViewById(R.id.password2);
+        firstName = findViewById(R.id.firstname);
+        lastName = findViewById(R.id.lastname);
+        emailId = findViewById(R.id.email);
+        password1 = findViewById(R.id.password);
+        password2 = findViewById(R.id.password2);
 
         // Buttons
-        sign_up = (Button) findViewById(R.id.btn_signup);
+        sign_up = findViewById(R.id.btn_signup);
 
         // Listeners
         if (i.getStringExtra(Intent.EXTRA_TEXT).equals("facebook")) {
-            this.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            this.getSupportActionBar().setHomeButtonEnabled(false);
-            this.getSupportActionBar().setDisplayShowHomeEnabled(false);
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(false);
+                actionBar.setHomeButtonEnabled(false);
+                actionBar.setDisplayShowHomeEnabled(false);
+            }
+
 
             fillFields();
             sign_up.setOnClickListener(new View.OnClickListener() {
@@ -103,54 +113,64 @@ public class SignupActivity extends AppCompatActivity {
                         if (i.getStringExtra(Intent.EXTRA_TEXT).equals("facebook")) {
                             password = password1.getText().toString();
                             AuthCredential authCredential = EmailAuthProvider.getCredential(email, password);
-                            mAuth.getCurrentUser().linkWithCredential(authCredential)
-                                    .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if (task.isSuccessful()) {
-                                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                                mUser = mAuth.getCurrentUser();
-                                                mUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        Toast.makeText(SignupActivity.this, "Verification mail sent.", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
+                            if (mAuth.getCurrentUser() != null)
+                                mAuth.getCurrentUser().linkWithCredential(authCredential)
+                                        .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+                                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                    mUser = mAuth.getCurrentUser();
+                                                    mUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            Toast.makeText(SignupActivity.this, "Verification mail sent.", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
 
-                                                Map<String, Object> newUser = new HashMap<>();
-                                                newUser.put("dob", "NA");
-                                                newUser.put("cart", "NA");
-                                                newUser.put("wallet", "NA");
-                                                newUser.put("wishlist", "NA");
-                                                newUser.put("email", email);
-                                                newUser.put("first_name", first_name);
-                                                newUser.put("last_name", last_name);
-                                                newUser.put("gender", "NA");
-                                                newUser.put("order_limit", "NA");
-                                                newUser.put("order_price_limit", "NA");
-                                                newUser.put("role", "GENERAL");
-                                                newUser.put("delivery_address", "NA");
-                                                newUser.put("subscription_plan", "NA");
-                                                newUser.put("subscription_start_date", "NA");
-                                                newUser.put("subscription_end_date", "NA");
-                                                db.collection("users").document(email).set(newUser);
+                                                    Map<String, Object> newUser = new HashMap<>();
+                                                    newUser.put("uid", mUser.getUid());
+                                                    newUser.put("dob", "NA");
+                                                    newUser.put("cart", "NA");
+                                                    newUser.put("wallet", "NA");
+                                                    newUser.put("wishlist", "NA");
+                                                    newUser.put("email", email);
+                                                    newUser.put("first_name", first_name);
+                                                    newUser.put("last_name", last_name);
+                                                    newUser.put("gender", "NA");
+                                                    newUser.put("order_limit", "NA");
+                                                    newUser.put("order_price_limit", "NA");
+                                                    newUser.put("role", "GENERAL");
+                                                    newUser.put("delivery_address", "NA");
+                                                    newUser.put("subscription_plan", "NA");
+                                                    newUser.put("subscription_start_date", "NA");
+                                                    newUser.put("subscription_end_date", "NA");
+                                                    db.collection("users").document(email).set(newUser)
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    progressBar.setVisibility(View.GONE);
 
-                                                progressBar.setVisibility(View.GONE);
-
-                                                AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
-                                                builder.setTitle("Welcome to BookBird")
-                                                        .setMessage("Verify your email to proceed")
-                                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                                if (mAuth.getCurrentUser() != null)
-                                                                    mAuth.signOut();                                                                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
-                                                                finish();
-                                                            }
-                                                        }).show();
+                                                                    AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
+                                                                    builder.setTitle("Welcome to BookBird")
+                                                                            .setMessage("Verify your email to proceed")
+                                                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                                                    if (mAuth.getCurrentUser() != null) {
+                                                                                        mAuth.signOut();
+                                                                                        LoginManager.getInstance().logOut();
+                                                                                    }
+                                                                                    startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                                                                                    finish();
+                                                                                }
+                                                                            }).show();
+                                                                }
+                                                            });
+                                                }
                                             }
-                                        }
-                                    });
+                                        });
+
                         }
                     } catch (IllegalArgumentException e) {
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -187,22 +207,25 @@ public class SignupActivity extends AppCompatActivity {
                                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                                     .setDisplayName(first_name + " " + last_name)
                                                     .build();
-                                            user.updateProfile(profileUpdates)
-                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                                            Toast.makeText(SignupActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                                                            progressBar.setVisibility(View.GONE);
-                                                        }
-                                                    });
 
-                                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    Toast.makeText(SignupActivity.this, "Verification mail sent.", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
+                                            if (user != null) {
+                                                user.updateProfile(profileUpdates)
+                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                                                Toast.makeText(SignupActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                                                                progressBar.setVisibility(View.GONE);
+                                                            }
+                                                        });
+
+                                                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        Toast.makeText(SignupActivity.this, "Verification mail sent.", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
 
                                             Map<String, Object> newUser = new HashMap<>();
                                             newUser.put("dob", "NA");
