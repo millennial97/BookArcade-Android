@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 import in.bookarcade.app.adapter.BottomNavigationViewPagerAdapter;
 import in.bookarcade.app.auth.LoginActivity;
 
@@ -76,9 +78,11 @@ public class HomeActivity extends AppCompatActivity
                         switch (item.getItemId()) {
                             case R.id.navigation_home:
                                 viewPager.setCurrentItem(0);
+                                Objects.requireNonNull(getSupportActionBar()).setTitle("Store");
                                 break;
                             case R.id.navigation_dashboard:
                                 viewPager.setCurrentItem(1);
+                                Objects.requireNonNull(getSupportActionBar()).setTitle("Dashboard");
                                 break;
                             case R.id.navigation_notifications:
                                 viewPager.setCurrentItem(2);
