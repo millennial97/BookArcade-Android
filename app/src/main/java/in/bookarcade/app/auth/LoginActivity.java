@@ -37,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 
 import in.bookarcade.app.HomeActivity;
+import in.bookarcade.app.MainActivity;
 import in.bookarcade.app.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -68,6 +69,16 @@ public class LoginActivity extends AppCompatActivity {
         preInit();
         initViews();
         mainInit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null) {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            finish();
+        }
     }
 
     private void preInit() {
