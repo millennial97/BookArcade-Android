@@ -2,6 +2,7 @@ package in.bookarcade.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +32,7 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     //Java built-in types
-
+    private boolean doubleBackToExitPressedOnce = false;
 
     //Android widgets
     private ViewPager viewPager;
@@ -78,11 +80,11 @@ public class HomeActivity extends AppCompatActivity
                         switch (item.getItemId()) {
                             case R.id.navigation_home:
                                 viewPager.setCurrentItem(0);
-                                Objects.requireNonNull(getSupportActionBar()).setTitle("Store");
+//                                Objects.requireNonNull(getSupportActionBar()).setTitle("Store");
                                 break;
                             case R.id.navigation_dashboard:
                                 viewPager.setCurrentItem(1);
-                                Objects.requireNonNull(getSupportActionBar()).setTitle("Dashboard");
+//                                Objects.requireNonNull(getSupportActionBar()).setTitle("Dashboard");
                                 break;
                             case R.id.navigation_notifications:
                                 viewPager.setCurrentItem(2);
@@ -142,16 +144,6 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
@@ -200,5 +192,26 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press again to exit BookArcade", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }
