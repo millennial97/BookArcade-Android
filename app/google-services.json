@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "895933502880",
+    "firebase_url": "https://bookarcade-cloud.firebaseio.com",
+    "project_id": "bookarcade-cloud",
+    "storage_bucket": "bookarcade-cloud.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895933502880:android:8169665e10532716",
+        "android_client_info": {
+          "package_name": "in.bookarcade.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "895933502880-3jf8gquo3ev2sfusc4r3nv5fotc91rb0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.bookarcade.app",
+            "certificate_hash": "ef10422d3f93d06332335d3bf2b7eef3ac0e7e5f"
+          }
+        },
+        {
+          "client_id": "895933502880-rdd1q4l8tjn8lpuumhhiuq0o7gmhpadv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVfYejmCqYRhWLt5Dbb-ZpULTURHGAh_c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895933502880-rdd1q4l8tjn8lpuumhhiuq0o7gmhpadv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
