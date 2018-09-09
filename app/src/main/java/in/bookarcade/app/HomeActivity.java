@@ -95,7 +95,16 @@ public class HomeActivity extends AppCompatActivity
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                switch(position) {
+                    case 0:
+                        Objects.requireNonNull(getSupportActionBar()).setTitle("Store");
+                        break;
+                    case 1:
+                        Objects.requireNonNull(getSupportActionBar()).setTitle("Dashboard");
+                        break;
+                    default:
 
+                }
             }
 
             @Override
