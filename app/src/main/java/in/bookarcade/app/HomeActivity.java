@@ -112,7 +112,7 @@ public class HomeActivity extends AppCompatActivity
                                 viewPager.setCurrentItem(1);
 //                                Objects.requireNonNull(getSupportActionBar()).setTitle("Dashboard");
                                 break;
-                            case R.id.navigation_notifications:
+                            case R.id.navigation_profile:
                                 viewPager.setCurrentItem(2);
                                 break;
                         }

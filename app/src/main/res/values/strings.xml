@@ -16,9 +16,10 @@
 
     <string name="join_us">Join BookArcade</string>
     <string name="title_activity_example">ExampleActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Store Home</string>
+    <string name="title_categories">Categories</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_profile">Profile</string>
     <string name="title_activity_main">MainActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
