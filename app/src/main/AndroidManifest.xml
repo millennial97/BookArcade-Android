@@ -48,9 +48,6 @@
         <activity
             android:name=".auth.SignupActivity"
             android:label="Sign Up" />
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main" />
     </application>
 
 </manifest>
