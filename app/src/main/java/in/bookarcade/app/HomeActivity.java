@@ -169,7 +169,7 @@ public class HomeActivity extends AppCompatActivity
                             withBorder(4)
                     .endConfig().buildRound(String.valueOf(Objects.requireNonNull(mUser.getDisplayName()).charAt(0)),
                             getResources().getColor(R.color.colorLight));
-            img_user.setImageDrawable(textDrawable);
+            img_user.setBackground(textDrawable);
         }
 
     }
