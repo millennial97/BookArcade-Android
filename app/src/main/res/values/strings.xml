@@ -14,6 +14,7 @@
     <string name="action_logout">Logout</string>
     <string name="action_search">Search</string>
     <string name="action_cart">Cart</string>
+    <string name="search_hint">Search BookArcade</string>
 
 
     <string name="join_us">Join BookArcade</string>

@@ -1,15 +1,13 @@
-package in.bookarcade.app.utils;
+package in.bookarcade.app;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import in.bookarcade.app.R;
-
-public class SearchableActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_searchable);
+        setContentView(R.layout.activity_search);
     }
 }
