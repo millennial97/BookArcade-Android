@@ -1,6 +1,7 @@
 package in.bookarcade.app;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -18,10 +19,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -39,8 +45,15 @@ public class HomeActivity extends AppCompatActivity
     private Fragment homeFragment;
     private Fragment dashboardFragment;
     private MenuItem prevMenuItem;
+    private NavigationView navigationView;
+    private View headerView;
+    private TextView tv_name, tv_email;
+    private ImageView img_user;
 
     //External types
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private FirebaseUser mUser;
     private BottomNavigationView bottomNavigation;
 
     @Override
@@ -56,7 +69,7 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         preInit();
@@ -65,12 +78,19 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void preInit() {
-
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
     }
 
     private void initViews() {
         viewPager = findViewById(R.id.viewpager);
         bottomNavigation = findViewById(R.id.navigation);
+
+        headerView = navigationView.getHeaderView(0);
+        tv_name = headerView.findViewById(R.id.tv_name);
+        tv_email = headerView.findViewById(R.id.tv_email);
+        img_user = headerView.findViewById(R.id.imageView);
 
         //Listeners
         bottomNavigation.setOnNavigationItemSelectedListener(
@@ -97,7 +117,7 @@ public class HomeActivity extends AppCompatActivity
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                switch(position) {
+                switch (position) {
                     case 0:
                         Objects.requireNonNull(getSupportActionBar()).setTitle("Store");
                         break;
@@ -113,9 +133,7 @@ public class HomeActivity extends AppCompatActivity
             public void onPageSelected(int position) {
                 if (prevMenuItem != null) {
                     prevMenuItem.setChecked(false);
-                }
-                else
-                {
+                } else {
                     bottomNavigation.getMenu().getItem(0).setChecked(false);
                 }
                 bottomNavigation.getMenu().getItem(position).setChecked(true);
@@ -132,6 +150,22 @@ public class HomeActivity extends AppCompatActivity
 
     private void mainInit() {
         setupViewPager(viewPager);
+
+        tv_name.setText(Objects.requireNonNull(mAuth.getCurrentUser()).getDisplayName());
+        tv_email.setText(mUser.getEmail());
+
+        if (Objects.requireNonNull(mUser.getProviders()).contains("facebook.com")) {
+
+        } else {
+            TextDrawable textDrawable = TextDrawable.builder()
+                    .beginConfig().
+                            textColor(getResources().getColor(R.color.colorPrimary)).
+                            withBorder(4)
+                    .endConfig().buildRound(String.valueOf(Objects.requireNonNull(mUser.getDisplayName()).charAt(0)),
+                            getResources().getColor(R.color.colorLight));
+            img_user.setImageDrawable(textDrawable);
+        }
+
     }
 
     private void setupViewPager(ViewPager viewPager) {

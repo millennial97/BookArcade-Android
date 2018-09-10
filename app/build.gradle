@@ -43,6 +43,12 @@ dependencies {
     // Facebook SDK
     implementation 'com.facebook.android:facebook-login:4.34.0'
     implementation 'com.facebook.android:facebook-android-sdk:4.34.0'
+
+    //TextDrawable
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
+    //Universal Image Loader
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }
 
 apply plugin: 'com.google.gms.google-services'
