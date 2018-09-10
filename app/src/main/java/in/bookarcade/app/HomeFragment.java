@@ -5,9 +5,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import in.bookarcade.app.adapter.CarouselViewPagerAdapter;
+import in.bookarcade.app.model.CarouselItem;
 
 
 /**
@@ -19,19 +29,18 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int dotsCount;
+    private ViewPager viewPager;
+    private LinearLayout carouselDotsPanel;
+    private ImageView[] dots;
+    private List<CarouselItem> carouselImg;
+    private CarouselViewPagerAdapter adapter;
 
     private OnFragmentInteractionListener mListener;
 
     public HomeFragment() {
-        // Required empty public constructor
+
     }
 
     public static HomeFragment newInstance() {
@@ -46,8 +55,59 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        carouselImg = new ArrayList<>();
+
+        viewPager = view.findViewById(R.id.viewPager);
+        carouselDotsPanel = view.findViewById(R.id.carousel_dots);
+
+        carouselImg.add(new CarouselItem("https://www.pugh.co.uk/wp-content/uploads/2018/03/Sophos-Intercept-X--770x377.jpg"));
+        carouselImg.add(new CarouselItem("http://www.emilylistman.com/wp-content/uploads/2018/06/home-improvement-770x377.jpeg"));
+        carouselImg.add(new CarouselItem("http://beautifultrouble.org/wp-content/themes/beautifultrouble/img/BT_Banners4.jpg"));
+
+        adapter = new CarouselViewPagerAdapter(getContext(), carouselImg);
+        viewPager.setAdapter(adapter);
+
+        dotsCount = adapter.getCount();
+        dots = new ImageView[dotsCount];
+
+        for (int i = 0; i < dotsCount; i++) {
+            dots[i] = new ImageView(getContext());
+            dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.dot_inactive));
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            params.setMargins(8, 0, 8, 0);
+            carouselDotsPanel.addView(dots[i], params);
+        }
+
+        dots[0].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.dot_active));
+
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                for (int i = 0; i < dotsCount; i++) {
+                    dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.dot_inactive));
+                }
+
+                dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.dot_active));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -47,7 +47,7 @@ public class CategoriesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        return inflater.inflate(R.layout.fragment_categories, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

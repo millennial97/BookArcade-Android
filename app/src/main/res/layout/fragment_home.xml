@@ -6,6 +6,29 @@
     android:fillViewport="true"
     tools:context=".HomeFragment">
 
-    <include layout="@layout/layout_home_header" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <include layout="@layout/layout_home_header" />
+
+        <!-- Carousel slider using ViewPager -->
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_below="@id/layout_header"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:id="@+id/carousel_dots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/viewPager"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal" />
+
+    </RelativeLayout>
 </ScrollView>
