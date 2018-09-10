@@ -2,6 +2,7 @@ package in.bookarcade.app;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -28,11 +29,13 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.Objects;
 
 import in.bookarcade.app.adapter.BottomNavigationViewPagerAdapter;
 import in.bookarcade.app.auth.LoginActivity;
+import in.bookarcade.app.utils.UniversalImageLoader;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,6 +84,9 @@ public class HomeActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
+
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(this);
+        ImageLoader.getInstance().init(universalImageLoader.getDefaultConfig());
     }
 
     private void initViews() {
@@ -155,7 +161,7 @@ public class HomeActivity extends AppCompatActivity
         tv_email.setText(mUser.getEmail());
 
         if (Objects.requireNonNull(mUser.getProviders()).contains("facebook.com")) {
-
+            UniversalImageLoader.setImage(String.valueOf(mUser.getPhotoUrl())+"?height=200", img_user, null);
         } else {
             TextDrawable textDrawable = TextDrawable.builder()
                     .beginConfig().
