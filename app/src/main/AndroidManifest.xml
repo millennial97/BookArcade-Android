@@ -48,6 +48,7 @@
         <activity
             android:name=".auth.SignupActivity"
             android:label="Sign Up" />
+        <activity android:name=".utils.SearchableActivity"></activity>
     </application>
 
 </manifest>
