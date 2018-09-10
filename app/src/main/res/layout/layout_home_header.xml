@@ -28,7 +28,7 @@
             android:layout_below="@id/btn_engineering"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:text="Engineering"
+            android:text="@string/engineering"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
@@ -52,7 +52,7 @@
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/tv_engineering"
             android:layout_marginTop="4dp"
-            android:text="Medical"
+            android:text="@string/medical"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
@@ -76,7 +76,7 @@
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/tv_medical"
             android:layout_marginTop="4dp"
-            android:text="Genres"
+            android:text="@string/genres"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
@@ -100,7 +100,7 @@
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/tv_genres"
             android:layout_marginTop="4dp"
-            android:text="Authors"
+            android:text="@string/authors"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
@@ -124,7 +124,7 @@
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/tv_authors"
             android:layout_marginTop="4dp"
-            android:text="Popular"
+            android:text="@string/popular"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
@@ -148,7 +148,7 @@
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/tv_popular"
             android:layout_marginTop="4dp"
-            android:text="Popular"
+            android:text="@string/trending"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />

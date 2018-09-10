@@ -23,10 +23,10 @@
 
         <LinearLayout
             android:id="@+id/carousel_dots"
-            android:layout_marginTop="2dp"
+            android:layout_alignBottom="@id/viewPager"
+            android:layout_marginBottom="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/viewPager"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="horizontal" />
 

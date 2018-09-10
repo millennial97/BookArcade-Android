@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#111c33</color>
     <color name="colorAccent">#fca311</color>
     <color name="colorLight">#e5e5e5</color>
+
+    <color name="colorDrawablesHome">#e5e5e5</color>
 </resources>

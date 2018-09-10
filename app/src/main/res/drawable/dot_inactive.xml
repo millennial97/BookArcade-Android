@@ -5,7 +5,7 @@
     android:useLevel="true"
     android:dither="true">
 
-    <size android:height="8dip" android:width="8dip" />
-    <solid android:color="@color/colorPrimary" />
+    <size android:height="4dip" android:width="4dip" />
+    <solid android:color="#FFF" />
 
 </shape>
