@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_engineering"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/button_circle"
+            android:drawableTop="@drawable/ic_engineering"
+            android:paddingTop="20dp"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/tv_engineering"
+            android:text="Engineering"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            android:textAlignment="center"
+            android:layout_marginStart="8dp"
+            android:layout_below="@id/btn_engineering"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+</ScrollView>
