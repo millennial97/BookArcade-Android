@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
@@ -14,24 +13,143 @@
             android:id="@+id/btn_engineering"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:layout_marginTop="5dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/button_circle"
             android:drawableTop="@drawable/ic_engineering"
-            android:paddingTop="20dp"
-            android:textColor="@color/colorAccent" />
+            android:paddingTop="20dp" />
 
         <TextView
             android:id="@+id/tv_engineering"
-            android:text="Engineering"
-            android:textColor="@color/colorAccent"
-            android:textSize="12sp"
-            android:layout_marginTop="4dp"
-            android:textAlignment="center"
-            android:layout_marginStart="8dp"
-            android:layout_below="@id/btn_engineering"
             android:layout_width="65dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_engineering"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="Engineering"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_medical"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_toEndOf="@id/btn_engineering"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_circle"
+            android:drawableTop="@drawable/ic_medical"
+            android:paddingTop="20dp" />
+
+        <TextView
+            android:id="@+id/tv_medical"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_engineering"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/tv_engineering"
+            android:layout_marginTop="4dp"
+            android:text="Medical"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_genres"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_toEndOf="@id/btn_medical"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_circle"
+            android:drawableTop="@drawable/ic_genres"
+            android:paddingTop="20dp" />
+
+        <TextView
+            android:id="@+id/tv_genres"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_engineering"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/tv_medical"
+            android:layout_marginTop="4dp"
+            android:text="Genres"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_authors"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_toEndOf="@id/btn_genres"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_circle"
+            android:drawableTop="@drawable/ic_author"
+            android:paddingTop="20dp" />
+
+        <TextView
+            android:id="@+id/tv_authors"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_engineering"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/tv_genres"
+            android:layout_marginTop="4dp"
+            android:text="Authors"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_popular"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_toEndOf="@id/btn_authors"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_circle"
+            android:drawableTop="@drawable/ic_popular"
+            android:paddingTop="20dp" />
+
+        <TextView
+            android:id="@+id/tv_popular"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_engineering"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/tv_authors"
+            android:layout_marginTop="4dp"
+            android:text="Popular"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_trending"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_toEndOf="@id/btn_popular"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_circle"
+            android:drawableTop="@drawable/ic_trending"
+            android:paddingTop="20dp" />
+
+        <TextView
+            android:id="@+id/tv_trending"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_engineering"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/tv_popular"
+            android:layout_marginTop="4dp"
+            android:text="Popular"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp" />
 
     </RelativeLayout>
-</ScrollView>
+</HorizontalScrollView>
