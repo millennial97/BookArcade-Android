@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     tools:context=".HomeFragment">
 
@@ -17,29 +17,106 @@
         <!-- Carousel slider using ViewPager -->
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
-            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="190dp"
             android:layout_below="@id/layout_header"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary" />
 
         <LinearLayout
             android:id="@+id/carousel_dots"
-            android:layout_alignBottom="@id/viewPager"
-            android:layout_marginBottom="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/viewPager"
+            android:layout_marginBottom="2dp"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="horizontal" />
 
+        <!-- Section 1 -->
+
+        <TextView
+            android:id="@+id/tv_section1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/carousel_dots"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/section_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_more1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/carousel_dots"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/more"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_books"
-            android:layout_marginTop="8dp"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            android:layout_below="@id/viewPager"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_section1"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <!-- Section 2 -->
+
+        <TextView
+            android:id="@+id/tv_section2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_books"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/section_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_more2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/rv_books"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/more"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_books2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_section2"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <!-- Featured Section -->
+
+        <TextView
+            android:id="@+id/tv_head_featured"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_books2"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/featured"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <include
+            layout="@layout/card_home_featured"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_head_featured"
+            android:layout_marginTop="2dp" />
 
     </RelativeLayout>
 </ScrollView>

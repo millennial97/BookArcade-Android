@@ -35,12 +35,14 @@
     <string name="trending">Trending</string>
     <string name="logout">Logout</string>
     <string name="nav_version">BookArcade v0.02-PreAlpha</string>
-    <string name="section_name">Section Name</string>
-    <string name="more">MORE</string>
     <string name="book_name">Book Name</string>
     <string name="author_name">Author Name</string>
     <string name="mrp">MRP/-</string>
     <string name="price">PRC/-</string>
     <string name="book_image">Book Image</string>
     <string name="options">Options</string>
+    <string name="section_name">Section Name</string>
+    <string name="more">MORE</string>
+    <string name="featured">Featured for the day</string>
+    <string name="description">Description</string>
 </resources>
