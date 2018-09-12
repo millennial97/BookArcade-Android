@@ -45,4 +45,6 @@
     <string name="more">MORE</string>
     <string name="featured">Featured for the day</string>
     <string name="description">Description</string>
+    <string name="spotlight">In the Spotlight</string>
+    <string name="description_footer_image">Footer Image</string>
 </resources>

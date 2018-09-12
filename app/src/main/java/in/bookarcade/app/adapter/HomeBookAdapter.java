@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -42,6 +43,7 @@ public class HomeBookAdapter extends RecyclerView.Adapter<HomeBookAdapter.ViewHo
         private ImageView img_book;
         private TextView tv_mrp;
         private TextView tv_price;
+        private ProgressBar progressBar;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -51,10 +53,11 @@ public class HomeBookAdapter extends RecyclerView.Adapter<HomeBookAdapter.ViewHo
             this.tv_mrp = itemView.findViewById(R.id.tv_mrp);
             this.tv_price = itemView.findViewById(R.id.tv_price);
             this.img_book = itemView.findViewById(R.id.img_book);
+            this.progressBar = itemView.findViewById(R.id.progress_bar);
         }
 
         void bind(HomeBook book) {
-            UniversalImageLoader.setImage(book.getImageUrl(), this.img_book, null);
+            UniversalImageLoader.setImage(book.getImageUrl(), this.img_book, this.progressBar);
             this.tv_book_title.setText(book.getBookTitle());
             this.tv_book_author.setText(book.getBookAuthor());
             this.tv_mrp.setText(String.valueOf(book.getBookMrp()));

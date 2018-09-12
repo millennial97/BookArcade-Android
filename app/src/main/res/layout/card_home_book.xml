@@ -12,6 +12,14 @@
         android:layout_width="95dp"
         android:layout_height="wrap_content">
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="30dp"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <ImageView
             android:contentDescription="@string/book_image"
             android:id="@+id/img_book"

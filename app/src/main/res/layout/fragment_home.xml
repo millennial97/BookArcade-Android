@@ -114,10 +114,305 @@
 
         <include
             layout="@layout/card_home_featured"
+            android:id="@+id/layout_featured"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_head_featured"
             android:layout_marginTop="2dp" />
+
+        <!-- Section 3 -->
+
+        <TextView
+            android:id="@+id/tv_section3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_featured"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/section_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_more3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/layout_featured"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/more"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_books3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_section3"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <!-- Spotlight -->
+
+        <TextView
+            android:id="@+id/tv_head_spotlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_books3"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/spotlight"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <include
+            layout="@layout/card_home_spotlight"
+            android:id="@+id/layout_spotlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_head_spotlight"
+            android:layout_marginTop="2dp" />
+
+        <!-- Section 4 -->
+
+        <TextView
+            android:id="@+id/tv_section4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_spotlight"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/section_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_more4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/layout_spotlight"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/more"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_books4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_section4"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <!-- Section 5 -->
+
+        <TextView
+            android:id="@+id/tv_section5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_books4"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/section_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_more5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/rv_books4"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/more"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_books5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_section5"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <!-- Section 6 -->
+
+        <TextView
+            android:id="@+id/tv_section6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_books5"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/section_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_more6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/rv_books5"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/more"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_books6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_section6"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <!-- Section 7 -->
+
+        <TextView
+            android:id="@+id/tv_section7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_books6"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/section_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_more7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/rv_books6"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/more"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_books7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_section7"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <!-- Section 8 -->
+
+        <TextView
+            android:id="@+id/tv_section8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_books7"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/section_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_more8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/rv_books7"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/more"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_books8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_section8"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <!-- Section 9 -->
+
+        <TextView
+            android:id="@+id/tv_section9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_books8"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/section_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_more9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/rv_books8"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/more"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_books9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_section9"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <!-- Section 10 -->
+
+        <TextView
+            android:id="@+id/tv_section10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_books9"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/section_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_more10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/rv_books9"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/more"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_books10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_section10"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <ImageView
+            android:id="@+id/img_footer"
+            android:layout_marginTop="2dp"
+            android:background="@color/colorAccent"
+            android:layout_below="@id/rv_books10"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:contentDescription="@string/description_footer_image" />
 
     </RelativeLayout>
 </ScrollView>

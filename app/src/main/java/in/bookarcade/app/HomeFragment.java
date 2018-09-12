@@ -128,15 +128,15 @@ public class HomeFragment extends Fragment {
         carouselDotsPanel = view.findViewById(R.id.carousel_dots);
 
         rv_books = view.findViewById(R.id.rv_books);
-        rv_books = view.findViewById(R.id.rv_books);
-        rv_books = view.findViewById(R.id.rv_books);
-        rv_books = view.findViewById(R.id.rv_books);
-        rv_books = view.findViewById(R.id.rv_books);
-        rv_books = view.findViewById(R.id.rv_books);
-        rv_books = view.findViewById(R.id.rv_books);
-        rv_books = view.findViewById(R.id.rv_books);
-        rv_books = view.findViewById(R.id.rv_books);
-        rv_books = view.findViewById(R.id.rv_books);
+        rv_books2 = view.findViewById(R.id.rv_books2);
+        rv_books3 = view.findViewById(R.id.rv_books3);
+        rv_books4 = view.findViewById(R.id.rv_books4);
+        rv_books5 = view.findViewById(R.id.rv_books5);
+        rv_books6 = view.findViewById(R.id.rv_books6);
+        rv_books7 = view.findViewById(R.id.rv_books7);
+        rv_books8 = view.findViewById(R.id.rv_books8);
+        rv_books9 = view.findViewById(R.id.rv_books9);
+        rv_books10 = view.findViewById(R.id.rv_books10);
 
         for (int i = 0; i < dotsCount; i++) {
             dots[i] = new ImageView(getContext());
@@ -177,7 +177,7 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(adapter);
 
         books.add(new HomeBook("Half Girlfriend", "HALFGIRLFRIEND",
-                "https://images-na.ssl-images-amazon.com/images/I/51IpHUkHttL._SX326_BO1,204,203,200_.jpg",
+                "https://images-na.ssl-images-amazon.com/images/I/51A4JAd%2BXsL._SX323_BO1,204,203,200_.jpg",
                 "Chetan Bhagat", 200.0, 176.0));
         books.add(new HomeBook("Half Girlfriend", "HALFGIRLFRIEND",
                 "https://images-na.ssl-images-amazon.com/images/I/51IpHUkHttL._SX326_BO1,204,203,200_.jpg",
