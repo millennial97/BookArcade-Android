@@ -1,6 +1,7 @@
 package in.bookarcade.app.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -42,7 +43,7 @@ public class HomeBookAdapter extends RecyclerView.Adapter<HomeBookAdapter.ViewHo
         private TextView tv_mrp;
         private TextView tv_price;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
 
             this.tv_book_title = itemView.findViewById(R.id.tv_book_title);
@@ -52,11 +53,12 @@ public class HomeBookAdapter extends RecyclerView.Adapter<HomeBookAdapter.ViewHo
             this.img_book = itemView.findViewById(R.id.img_book);
         }
 
-        public void bind(HomeBook book) {
+        void bind(HomeBook book) {
             UniversalImageLoader.setImage(book.getImageUrl(), this.img_book, null);
             this.tv_book_title.setText(book.getBookTitle());
             this.tv_book_author.setText(book.getBookAuthor());
             this.tv_mrp.setText(String.valueOf(book.getBookMrp()));
+            this.tv_mrp.setPaintFlags(tv_mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             this.tv_price.setText(String.valueOf(book.getBookPrice()));
         }
     }
