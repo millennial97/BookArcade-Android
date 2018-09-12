@@ -7,17 +7,26 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import in.bookarcade.app.adapter.CarouselViewPagerAdapter;
+import in.bookarcade.app.adapter.HomeBookAdapter;
+import in.bookarcade.app.adapter.SectionAdapter;
 import in.bookarcade.app.model.CarouselItem;
+import in.bookarcade.app.model.HomeBook;
+import in.bookarcade.app.model.Section;
 
 
 /**
@@ -30,14 +39,24 @@ import in.bookarcade.app.model.CarouselItem;
  */
 public class HomeFragment extends Fragment {
 
+    //Java built-in types
     private int dotsCount;
+
+    //Android Widgets
     private ViewPager viewPager;
     private LinearLayout carouselDotsPanel;
     private ImageView[] dots;
     private List<CarouselItem> carouselImg;
     private CarouselViewPagerAdapter adapter;
+    private RecyclerView rv_books;
+    private List<HomeBook> books;
 
     private OnFragmentInteractionListener mListener;
+
+    //External types
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private HomeBookAdapter bookAdapter;
 
     public HomeFragment() {
 
@@ -57,10 +76,20 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        carouselImg = new ArrayList<>();
+        preInit();
+        initViews(view);
+        mainInit();
 
-        viewPager = view.findViewById(R.id.viewPager);
-        carouselDotsPanel = view.findViewById(R.id.carousel_dots);
+        return view;
+    }
+
+    private void preInit() {
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+        carouselImg = new ArrayList<>();
+        books = new ArrayList<>();
 
         carouselImg.add(new CarouselItem("https://www.pugh.co.uk/wp-content/uploads/2018/03/Sophos-Intercept-X--770x377.jpg"));
         carouselImg.add(new CarouselItem("http://www.emilylistman.com/wp-content/uploads/2018/06/home-improvement-770x377.jpeg"));
@@ -68,14 +97,23 @@ public class HomeFragment extends Fragment {
         carouselImg.add(new CarouselItem("http://beautifultrouble.org/wp-content/themes/beautifultrouble/img/BT_Banners4.jpg"));
 
         adapter = new CarouselViewPagerAdapter(getContext(), carouselImg);
-        viewPager.setAdapter(adapter);
+        bookAdapter = new HomeBookAdapter(getContext());
 
         dotsCount = adapter.getCount();
         dots = new ImageView[dotsCount];
 
+    }
+
+    private void initViews(View view) {
+
+        viewPager = view.findViewById(R.id.viewPager);
+        carouselDotsPanel = view.findViewById(R.id.carousel_dots);
+
+        rv_books = view.findViewById(R.id.rv_books);
+
         for (int i = 0; i < dotsCount; i++) {
             dots[i] = new ImageView(getContext());
-            dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.dot_inactive));
+            dots[i].setImageDrawable(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.dot_inactive));
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -83,9 +121,9 @@ public class HomeFragment extends Fragment {
             carouselDotsPanel.addView(dots[i], params);
         }
 
-        dots[0].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.dot_active));
+        dots[0].setImageDrawable(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.dot_active));
 
-
+        //Listeners
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -106,9 +144,17 @@ public class HomeFragment extends Fragment {
 
             }
         });
+    }
 
+    private void mainInit() {
+        viewPager.setAdapter(adapter);
 
-        return view;
+        books.add(new HomeBook("Half Girlfriend", "HALFGIRLFRIEND",
+                "https://images-na.ssl-images-amazon.com/images/I/51IpHUkHttL._SX326_BO1,204,203,200_.jpg",
+                "Chetan Bhagat", 200.0, 176.0));
+        bookAdapter.setBooks(books);
+        rv_books.setAdapter(bookAdapter);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
