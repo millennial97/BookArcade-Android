@@ -209,10 +209,10 @@ public class HomeFragment extends Fragment {
         rv_books.setAdapter(bookAdapter);
 
         authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
-        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
-        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
-        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
-        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://i.gadgets360cdn.com/large/chetan_bhagat_facebook_full_1524833671640.jpg?", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Arthur Conan Doyle", "https://www.thefamouspeople.com/profiles/images/sir-arthur-conan-doyle-18.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("JK Rowling", "https://static.timesofisrael.com/www/uploads/2018/04/AP_16267553017862-e1524077573580.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Steve Jobs", "https://cdn.vox-cdn.com/thumbor/DVN7eqE1o8HeBOP-jg15YHTsiLY=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/assets/1496753/stevejobs.jpg", "CHETAN_BHAGAT"));
         authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
         authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
         authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
