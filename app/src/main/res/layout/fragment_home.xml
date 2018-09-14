@@ -9,9 +9,9 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_marginBottom="50dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp">
 
         <include layout="@layout/layout_home_header" />
 
@@ -113,8 +113,8 @@
             android:textSize="16sp" />
 
         <include
-            layout="@layout/card_home_featured"
             android:id="@+id/layout_featured"
+            layout="@layout/card_home_featured"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_head_featured"
@@ -167,8 +167,8 @@
             android:textSize="16sp" />
 
         <include
-            layout="@layout/card_home_spotlight"
             android:id="@+id/layout_spotlight"
+            layout="@layout/card_home_spotlight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_head_spotlight"
@@ -207,13 +207,22 @@
             android:orientation="horizontal"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
+        <!-- Authors -->
+
+        <include
+            android:id="@+id/layout_authors"
+            android:layout_below="@id/rv_books4"
+            layout="@layout/layout_home_authors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <!-- Section 5 -->
 
         <TextView
             android:id="@+id/tv_section5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rv_books4"
+            android:layout_below="@id/layout_authors"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/section_name"
@@ -225,7 +234,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@id/rv_books4"
+            android:layout_below="@id/layout_authors"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/more"
@@ -407,11 +416,11 @@
 
         <ImageView
             android:id="@+id/img_footer"
-            android:layout_marginTop="2dp"
-            android:background="@color/colorAccent"
-            android:layout_below="@id/rv_books10"
             android:layout_width="match_parent"
             android:layout_height="190dp"
+            android:layout_below="@id/rv_books10"
+            android:layout_marginTop="2dp"
+            android:background="@color/colorAccent"
             android:contentDescription="@string/description_footer_image" />
 
     </RelativeLayout>

@@ -22,9 +22,11 @@ import java.util.List;
 import java.util.Objects;
 
 import in.bookarcade.app.adapter.CarouselViewPagerAdapter;
+import in.bookarcade.app.adapter.HomeAuthorAdapter;
 import in.bookarcade.app.adapter.HomeBookAdapter;
 import in.bookarcade.app.adapter.SectionAdapter;
 import in.bookarcade.app.model.CarouselItem;
+import in.bookarcade.app.model.HomeAuthor;
 import in.bookarcade.app.model.HomeBook;
 import in.bookarcade.app.model.Section;
 
@@ -49,13 +51,16 @@ public class HomeFragment extends Fragment {
     private List<CarouselItem> carouselImg;
     private CarouselViewPagerAdapter adapter;
     private RecyclerView rv_books, rv_books2, rv_books3, rv_books4, rv_books5, rv_books6, rv_books7, rv_books8, rv_books9, rv_books10;
+    private RecyclerView rv_authors;
     private List<HomeBook> books, books2, books3, books4, books5, books6, books7, books8, books9, books10;
+    private List<HomeAuthor> authors;
 
     private OnFragmentInteractionListener mListener;
 
     //External types
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private HomeAuthorAdapter authorAdapter;
     private HomeBookAdapter bookAdapter, bookAdapter2, bookAdapter3, bookAdapter4, bookAdapter5, bookAdapter6, bookAdapter7, bookAdapter8, bookAdapter9, bookAdapter10;
 
     public HomeFragment() {
@@ -99,6 +104,7 @@ public class HomeFragment extends Fragment {
         books8 = new ArrayList<>();
         books9 = new ArrayList<>();
         books10 = new ArrayList<>();
+        authors = new ArrayList<>();
 
         carouselImg.add(new CarouselItem("https://www.pugh.co.uk/wp-content/uploads/2018/03/Sophos-Intercept-X--770x377.jpg"));
         carouselImg.add(new CarouselItem("http://www.emilylistman.com/wp-content/uploads/2018/06/home-improvement-770x377.jpeg"));
@@ -116,6 +122,7 @@ public class HomeFragment extends Fragment {
         bookAdapter8 = new HomeBookAdapter(getContext());
         bookAdapter9 = new HomeBookAdapter(getContext());
         bookAdapter10 = new HomeBookAdapter(getContext());
+        authorAdapter = new HomeAuthorAdapter(getContext());
 
         dotsCount = adapter.getCount();
         dots = new ImageView[dotsCount];
@@ -137,6 +144,7 @@ public class HomeFragment extends Fragment {
         rv_books8 = view.findViewById(R.id.rv_books8);
         rv_books9 = view.findViewById(R.id.rv_books9);
         rv_books10 = view.findViewById(R.id.rv_books10);
+        rv_authors = view.findViewById(R.id.rv_authors);
 
         for (int i = 0; i < dotsCount; i++) {
             dots[i] = new ImageView(getContext());
@@ -199,6 +207,18 @@ public class HomeFragment extends Fragment {
                 "Chetan Bhagat", 200.0, 176.0));
         bookAdapter.setBooks(books);
         rv_books.setAdapter(bookAdapter);
+
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+
+        authorAdapter.setAuthors(authors);
+        rv_authors.setAdapter(authorAdapter);
 
     }
 
