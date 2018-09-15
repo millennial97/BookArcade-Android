@@ -31,7 +31,8 @@ public class BookActivity extends AppCompatActivity {
         Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_action_up);
 
-
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
     }
 
