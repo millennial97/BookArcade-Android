@@ -63,7 +63,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".BookActivity"></activity>
+        <activity android:name=".BookActivity" />
     </application>
 
 </manifest>

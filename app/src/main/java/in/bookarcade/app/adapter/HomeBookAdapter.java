@@ -1,6 +1,7 @@
 package in.bookarcade.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.bookarcade.app.BookActivity;
 import in.bookarcade.app.R;
 import in.bookarcade.app.model.HomeBook;
 import in.bookarcade.app.model.Section;
@@ -54,6 +56,14 @@ public class HomeBookAdapter extends RecyclerView.Adapter<HomeBookAdapter.ViewHo
             this.tv_price = itemView.findViewById(R.id.tv_price);
             this.img_book = itemView.findViewById(R.id.img_book);
             this.progressBar = itemView.findViewById(R.id.progress_bar);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(context, BookActivity.class);
+                    context.startActivity(i);
+                }
+            });
         }
 
         void bind(HomeBook book) {

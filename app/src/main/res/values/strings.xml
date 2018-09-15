@@ -14,7 +14,7 @@
     <string name="action_logout">Logout</string>
     <string name="action_search">Search</string>
     <string name="action_cart">Cart</string>
-    <string name="search_hint">Search BookArcade</string>
+    <string name="search_hint">Search...</string>
 
 
     <string name="join_us">Join BookArcade</string>
@@ -54,4 +54,8 @@
     <string name="book_mrp">M.R.P - ₹ 415</string>
     <string name="purchase">Purchase</string>
     <string name="rent">Rent</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="about_the_book">About the book</string>
+    <string name="read_more">READ MORE</string>
+    <string name="about_the_author">About the author</string>
 </resources>
