@@ -47,4 +47,11 @@
     <string name="description">Description</string>
     <string name="spotlight">In the Spotlight</string>
     <string name="description_footer_image">Footer Image</string>
+    <string name="publisher_name">Publisher Name</string>
+    <string name="release_date">November 22, 2011</string>
+    <string name="no_of_pages">400 Pages</string>
+    <string name="isbn">ISBN: 123–1231231231</string>
+    <string name="book_mrp">M.R.P - ₹ 415</string>
+    <string name="purchase">Purchase</string>
+    <string name="rent">Rent</string>
 </resources>
