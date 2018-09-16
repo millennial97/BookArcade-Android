@@ -13,12 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import in.bookarcade.app.adapter.CarouselViewPagerAdapter;
@@ -29,6 +35,7 @@ import in.bookarcade.app.model.CarouselItem;
 import in.bookarcade.app.model.HomeAuthor;
 import in.bookarcade.app.model.HomeBook;
 import in.bookarcade.app.model.Section;
+import in.bookarcade.app.utils.UniversalImageLoader;
 
 
 /**
@@ -48,12 +55,15 @@ public class HomeFragment extends Fragment {
     private ViewPager viewPager;
     private LinearLayout carouselDotsPanel;
     private ImageView[] dots;
+    private ImageView img_footer;
     private List<CarouselItem> carouselImg;
     private CarouselViewPagerAdapter adapter;
     private RecyclerView rv_books, rv_books2, rv_books3, rv_books4, rv_books5, rv_books6, rv_books7, rv_books8, rv_books9, rv_books10;
     private RecyclerView rv_authors;
     private List<HomeBook> books, books2, books3, books4, books5, books6, books7, books8, books9, books10;
     private List<HomeAuthor> authors;
+    private TextView tv_section1, tv_section2, tv_section3, tv_section4, tv_section5, tv_section6, tv_section7, tv_section8, tv_section9, tv_section10, tv_featured, tv_spotlight;
+    private TextView tv_more1, tv_more2, tv_more3, tv_more4, tv_more5, tv_more6, tv_more7, tv_more8, tv_more9, tv_more10;
 
     private OnFragmentInteractionListener mListener;
 
@@ -134,6 +144,7 @@ public class HomeFragment extends Fragment {
         viewPager = view.findViewById(R.id.viewPager);
         carouselDotsPanel = view.findViewById(R.id.carousel_dots);
 
+        //RecyclerViews
         rv_books = view.findViewById(R.id.rv_books);
         rv_books2 = view.findViewById(R.id.rv_books2);
         rv_books3 = view.findViewById(R.id.rv_books3);
@@ -146,6 +157,29 @@ public class HomeFragment extends Fragment {
         rv_books10 = view.findViewById(R.id.rv_books10);
         rv_authors = view.findViewById(R.id.rv_authors);
 
+        //TextViews
+        tv_more1 = view.findViewById(R.id.tv_more1);
+        tv_more2 = view.findViewById(R.id.tv_more2);
+        tv_more3 = view.findViewById(R.id.tv_more3);
+        tv_more4 = view.findViewById(R.id.tv_more4);
+        tv_more5 = view.findViewById(R.id.tv_more5);
+        tv_more6 = view.findViewById(R.id.tv_more6);
+        tv_more7 = view.findViewById(R.id.tv_more7);
+        tv_more8 = view.findViewById(R.id.tv_more8);
+        tv_more9 = view.findViewById(R.id.tv_more9);
+        tv_more10 = view.findViewById(R.id.tv_more10);
+
+        tv_section1 = view.findViewById(R.id.tv_section1);
+        tv_section2 = view.findViewById(R.id.tv_section2);
+        tv_section3 = view.findViewById(R.id.tv_section3);
+        tv_section4 = view.findViewById(R.id.tv_section4);
+        tv_section5 = view.findViewById(R.id.tv_section5);
+        tv_section6 = view.findViewById(R.id.tv_section6);
+        tv_section7 = view.findViewById(R.id.tv_section7);
+        tv_section8 = view.findViewById(R.id.tv_section8);
+        tv_section9 = view.findViewById(R.id.tv_section9);
+        tv_section10 = view.findViewById(R.id.tv_section10);
+
         for (int i = 0; i < dotsCount; i++) {
             dots[i] = new ImageView(getContext());
             dots[i].setImageDrawable(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.dot_inactive));
@@ -157,6 +191,8 @@ public class HomeFragment extends Fragment {
         }
 
         dots[0].setImageDrawable(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.dot_active));
+
+        img_footer = view.findViewById(R.id.img_footer);
 
         //Listeners
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -184,29 +220,33 @@ public class HomeFragment extends Fragment {
     private void mainInit() {
         viewPager.setAdapter(adapter);
 
-        books.add(new HomeBook("Half Girlfriend", "HALFGIRLFRIEND",
-                "https://images-na.ssl-images-amazon.com/images/I/51A4JAd%2BXsL._SX323_BO1,204,203,200_.jpg",
-                "Chetan Bhagat", 200.0, 176.0));
-        books.add(new HomeBook("Half Girlfriend", "HALFGIRLFRIEND",
-                "https://images-na.ssl-images-amazon.com/images/I/51IpHUkHttL._SX326_BO1,204,203,200_.jpg",
-                "Chetan Bhagat", 200.0, 176.0));
-        books.add(new HomeBook("Half Girlfriend", "HALFGIRLFRIEND",
-                "https://images-na.ssl-images-amazon.com/images/I/51IpHUkHttL._SX326_BO1,204,203,200_.jpg",
-                "Chetan Bhagat", 200.0, 176.0));
-        books.add(new HomeBook("Half Girlfriend", "HALFGIRLFRIEND",
-                "https://images-na.ssl-images-amazon.com/images/I/51IpHUkHttL._SX326_BO1,204,203,200_.jpg",
-                "Chetan Bhagat", 200.0, 176.0));
-        books.add(new HomeBook("Half Girlfriend", "HALFGIRLFRIEND",
-                "https://images-na.ssl-images-amazon.com/images/I/51IpHUkHttL._SX326_BO1,204,203,200_.jpg",
-                "Chetan Bhagat", 200.0, 176.0));
-        books.add(new HomeBook("Half Girlfriend", "HALFGIRLFRIEND",
-                "https://images-na.ssl-images-amazon.com/images/I/51IpHUkHttL._SX326_BO1,204,203,200_.jpg",
-                "Chetan Bhagat", 200.0, 176.0));
-        books.add(new HomeBook("Half Girlfriend", "HALFGIRLFRIEND",
-                "https://images-na.ssl-images-amazon.com/images/I/51IpHUkHttL._SX326_BO1,204,203,200_.jpg",
-                "Chetan Bhagat", 200.0, 176.0));
-        bookAdapter.setBooks(books);
-        rv_books.setAdapter(bookAdapter);
+        UniversalImageLoader.setImage("https://funologist.org/wp-content/uploads/2017/11/donate-button.gif", img_footer, null);
+
+        db.collection("android_v1_0_0").document("section1").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                tv_section1.setText(task.getResult().getData().get("section_name").toString());
+            }
+        });
+
+        db.collection("android_v1_0_0").document("section1").collection("books").limit(10).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<DocumentSnapshot> documents = task.getResult().getDocuments();
+                        for (DocumentSnapshot document : documents) {
+                            Map<String, Object> book = document.getData();
+                            if (book != null) {
+                                books.add(new HomeBook(book.get("title").toString(), book.get("book_id").toString(),
+                                        book.get("m_image_url").toString(), book.get("author").toString(), Double.parseDouble(book.get("mrp").toString()),
+                                        Double.parseDouble(book.get("price").toString())));
+                            }
+                        }
+                        bookAdapter.setBooks(books);
+                        rv_books.setAdapter(bookAdapter);
+                    }
+                });
+
 
         authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
         authors.add(new HomeAuthor("Chetan Bhagat", "https://i.gadgets360cdn.com/large/chetan_bhagat_facebook_full_1524833671640.jpg?", "CHETAN_BHAGAT"));

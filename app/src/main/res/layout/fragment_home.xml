@@ -420,7 +420,6 @@
             android:layout_height="190dp"
             android:layout_below="@id/rv_books10"
             android:layout_marginTop="2dp"
-            android:background="@color/colorAccent"
             android:contentDescription="@string/description_footer_image" />
 
     </RelativeLayout>

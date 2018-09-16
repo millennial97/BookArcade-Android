@@ -58,4 +58,8 @@
     <string name="about_the_book">About the book</string>
     <string name="read_more">READ MORE</string>
     <string name="about_the_author">About the author</string>
+    <string name="_pages"> Pages</string>
+    <string name="mrp_rupee">M.R.P - ₹</string>
+    <string name="language_">Language: </string>
+    <string name="isbn_">ISBN: </string>
 </resources>
