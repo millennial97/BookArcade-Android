@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -107,6 +109,24 @@ public class BookActivity extends AppCompatActivity {
 
     private void mainInit() {
 
+        /*
+        Map<String, Object> book = new HashMap<>();
+        book.put("author", "Ravish Kumar");
+        book.put("title", "The Free Voice: On Democracy, Culture and the Nation");
+        book.put("s_image_url", "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1520184445i/38929045._UY200_.jpg");
+        book.put("book_id", "THE_FREE_VOICE-9387164780");
+        book.put("mrp", 499);
+        book.put("price", 335);
+        db.collection("android_v1_0_0").document("section1").collection("books").document("THE_FREE_VOICE-9387164780").set(book);
+
+        Map<String, Object> author = new HashMap<>();
+        author.put("name", "Ravish Kumar");
+        author.put("image_url", "https://i0.wp.com/news.fawnconsulting.in/wp-content/uploads/2018/01/Ravish-kumar.jpg?fit=576%2C432");
+        author.put("about", "Ravish Kumar, writer, journalist and social commentator, is Senior Executive Editor with NDTV India. He is also the author of Ishq Mein Shahar Hona, Dekhte Rahiye and Ravishpanti.");
+        db.collection("master_authors").document("Ravish Kumar").set(author);
+        */
+
+
         db.collection("master_authors").document(intent.getStringExtra("author")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -121,20 +141,27 @@ public class BookActivity extends AppCompatActivity {
         db.collection("master_books").document(intent.getStringExtra("book_id")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                Map<String, Object> book = task.getResult().getData();
-                if (book != null) {
-                    UniversalImageLoader.setImage(book.get("s_image_url").toString(), img_book, null);
-                    tv_book_title.setText(book.get("title").toString());
-                    tv_book_author.setText(book.get("author").toString());
-                    tv_book_language.setText(getString(R.string.language_) + " " + book.get("language").toString());
-                    tv_book_isbn.setText(getString(R.string.isbn_) + " " + book.get("isbn13").toString());
-                    tv_book_publisher.setText(book.get("publisher").toString());
-                    tv_book_release_date.setText(book.get("release_date").toString());
-                    tv_book_pages.setText(Integer.parseInt(book.get("pages").toString()) + " " + getString(R.string._pages));
-                    tv_mrp.setText(getString(R.string.mrp_rupee) + Double.parseDouble(book.get("mrp").toString()));
+                if (task.isSuccessful()) {
 
-                    progressBar.setVisibility(View.GONE);
-                    mainLayout.setVisibility(View.VISIBLE);
+                    Map<String, Object> book = task.getResult().getData();
+                    if (book != null) {
+                        UniversalImageLoader.setImage(book.get("m_image_url").toString(), img_book, null);
+
+                        tv_book_title.setText(book.get("title").toString());
+                        tv_book_author.setText(book.get("author").toString());
+                        tv_book_language.setText(getString(R.string.language_) + " " + book.get("language").toString());
+                        tv_book_isbn.setText(getString(R.string.isbn_) + " " + book.get("isbn13").toString());
+                        tv_book_publisher.setText(book.get("publisher").toString());
+                        tv_book_release_date.setText(book.get("release_date").toString());
+                        tv_book_pages.setText(Integer.parseInt(book.get("pages").toString()) + " " + getString(R.string._pages));
+                        tv_mrp.setText(getString(R.string.mrp_rupee) + Double.parseDouble(book.get("mrp").toString()));
+                        tv_about.setText(book.get("short_description").toString());
+
+                        progressBar.setVisibility(View.GONE);
+                        mainLayout.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(BookActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

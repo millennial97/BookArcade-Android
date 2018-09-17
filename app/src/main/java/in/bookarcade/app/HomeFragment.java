@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -242,6 +243,46 @@ public class HomeFragment extends Fragment {
     }
 
     private void mainInit() {
+
+/*
+        db.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<DocumentSnapshot> documents = task.getResult().getDocuments();
+                for (DocumentSnapshot document : documents) {
+                    Map<String, Object> book = document.getData();
+                    Map<String, Object> master_book = new HashMap<>();
+                    master_book.put("book_sku", book.get("book_sku").toString());
+                    master_book.put("author", book.get("author").toString());
+                    master_book.put("category", book.get("category").toString());
+                    master_book.put("category_tags", book.get("category_tags"));
+                    master_book.put("condition", "New");
+                    master_book.put("goodreads_rating", Double.parseDouble(book.get("goodreads_rating").toString()));
+                    master_book.put("mrp", Double.parseDouble(book.get("mrp").toString()));
+                    master_book.put("price", Double.parseDouble(book.get("price").toString()));
+                    master_book.put("pages", Integer.parseInt(book.get("pages").toString()));
+                    master_book.put("isbn10", book.get("isbn10").toString());
+                    master_book.put("isbn13", book.get("isbn13").toString());
+                    master_book.put("l_image_url", book.get("l_image_url").toString());
+                    master_book.put("s_image_url", book.get("s_image_url").toString());
+                    master_book.put("m_image_url", book.get("m_image_url").toString());
+                    master_book.put("language", book.get("language").toString());
+                    master_book.put("long_description", book.get("long_description").toString());
+                    master_book.put("publisher", book.get("publisher").toString());
+                    master_book.put("release_date", book.get("release_date").toString());
+                    master_book.put("short_description", book.get("short_description").toString());
+                    master_book.put("sub_category", book.get("sub_category").toString());
+                    master_book.put("title", book.get("title").toString());
+                    master_book.put("stock_available", true);
+
+
+                    db.collection("master_books").document(book.get("book_sku").toString()).set(master_book);
+                }
+            }
+        });
+        */
+
+
         viewPager.setAdapter(adapter);
 
         UniversalImageLoader.setImage("https://funologist.org/wp-content/uploads/2017/11/donate-button.gif", img_footer, null);
@@ -320,7 +361,7 @@ public class HomeFragment extends Fragment {
                             Map<String, Object> book = document.getData();
                             if (book != null) {
                                 books.add(new HomeBook(book.get("title").toString(), book.get("book_id").toString(),
-                                        book.get("s_image_url").toString(), book.get("author").toString(), Double.parseDouble(book.get("mrp").toString()),
+                                        book.get("m_image_url").toString(), book.get("author").toString(), Double.parseDouble(book.get("mrp").toString()),
                                         Double.parseDouble(book.get("price").toString())));
                             }
                         }
