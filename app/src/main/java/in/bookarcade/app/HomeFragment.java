@@ -1,12 +1,14 @@
 package in.bookarcade.app;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +57,8 @@ public class HomeFragment extends Fragment {
     private ViewPager viewPager;
     private LinearLayout carouselDotsPanel;
     private ImageView[] dots;
-    private ImageView img_footer;
+    private CardView card_featured, card_spotlight;
+    private ImageView img_footer, img_featured, img_spotlight;
     private List<CarouselItem> carouselImg;
     private CarouselViewPagerAdapter adapter;
     private RecyclerView rv_books, rv_books2, rv_books3, rv_books4, rv_books5, rv_books6, rv_books7, rv_books8, rv_books9, rv_books10;
@@ -64,6 +67,8 @@ public class HomeFragment extends Fragment {
     private List<HomeAuthor> authors;
     private TextView tv_section1, tv_section2, tv_section3, tv_section4, tv_section5, tv_section6, tv_section7, tv_section8, tv_section9, tv_section10, tv_featured, tv_spotlight;
     private TextView tv_more1, tv_more2, tv_more3, tv_more4, tv_more5, tv_more6, tv_more7, tv_more8, tv_more9, tv_more10;
+    private TextView tv_featured_book_title, tv_featured_book_author, tv_featured_book_description, tv_featured_price, tv_featured_mrp;
+    private TextView tv_spotlight_book_title, tv_spotlight_book_author, tv_spotlight_book_description, tv_spotlight_price, tv_spotlight_mrp;
 
     private OnFragmentInteractionListener mListener;
 
@@ -169,6 +174,20 @@ public class HomeFragment extends Fragment {
         tv_more9 = view.findViewById(R.id.tv_more9);
         tv_more10 = view.findViewById(R.id.tv_more10);
 
+        tv_featured = view.findViewById(R.id.tv_head_featured);
+        tv_featured_book_title = view.findViewById(R.id.tv_featured_book_title);
+        tv_featured_book_author = view.findViewById(R.id.tv_featured_book_author);
+        tv_featured_book_description = view.findViewById(R.id.tv_featured_book_description);
+        tv_featured_price = view.findViewById(R.id.tv_featured_price);
+        tv_featured_mrp = view.findViewById(R.id.tv_featured_mrp);
+
+        tv_spotlight = view.findViewById(R.id.tv_head_spotlight);
+        tv_spotlight_book_title = view.findViewById(R.id.tv_spotlight_book_title);
+        tv_spotlight_book_author = view.findViewById(R.id.tv_spotlight_book_author);
+        tv_spotlight_book_description = view.findViewById(R.id.tv_spotlight_book_description);
+        tv_spotlight_price = view.findViewById(R.id.tv_spotlight_price);
+        tv_spotlight_mrp = view.findViewById(R.id.tv_spotlight_mrp);
+
         tv_section1 = view.findViewById(R.id.tv_section1);
         tv_section2 = view.findViewById(R.id.tv_section2);
         tv_section3 = view.findViewById(R.id.tv_section3);
@@ -179,6 +198,9 @@ public class HomeFragment extends Fragment {
         tv_section8 = view.findViewById(R.id.tv_section8);
         tv_section9 = view.findViewById(R.id.tv_section9);
         tv_section10 = view.findViewById(R.id.tv_section10);
+
+        //CardViews/Layouts
+        card_featured = view.findViewById(R.id.card_featured);
 
         for (int i = 0; i < dotsCount; i++) {
             dots[i] = new ImageView(getContext());
@@ -193,6 +215,8 @@ public class HomeFragment extends Fragment {
         dots[0].setImageDrawable(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.dot_active));
 
         img_footer = view.findViewById(R.id.img_footer);
+        img_featured = view.findViewById(R.id.img_featured_book);
+        img_spotlight = view.findViewById(R.id.img_spotlight_book);
 
         //Listeners
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -222,6 +246,44 @@ public class HomeFragment extends Fragment {
 
         UniversalImageLoader.setImage("https://funologist.org/wp-content/uploads/2017/11/donate-button.gif", img_footer, null);
 
+        setSectionBooks();
+
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://i.gadgets360cdn.com/large/chetan_bhagat_facebook_full_1524833671640.jpg?", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Arthur Conan Doyle", "https://www.thefamouspeople.com/profiles/images/sir-arthur-conan-doyle-18.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("JK Rowling", "https://static.timesofisrael.com/www/uploads/2018/04/AP_16267553017862-e1524077573580.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Steve Jobs", "https://cdn.vox-cdn.com/thumbor/DVN7eqE1o8HeBOP-jg15YHTsiLY=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/assets/1496753/stevejobs.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
+
+        authorAdapter.setAuthors(authors);
+        rv_authors.setAdapter(authorAdapter);
+
+    }
+
+    private void setSectionBooks() {
+
+        //Featured
+        db.collection("android_v1_0_0").document("featured").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Map<String, Object> featuredBook = task.getResult().getData();
+                if (featuredBook != null) {
+                    UniversalImageLoader.setImage(featuredBook.get("s_image_url").toString(), img_featured, null);
+                    tv_featured.setText(featuredBook.get("section_name").toString());
+                    tv_featured_book_title.setText(featuredBook.get("title").toString());
+                    tv_featured_book_author.setText(getString(R.string._) + featuredBook.get("author").toString());
+                    tv_featured_book_description.setText(featuredBook.get("description").toString());
+                    tv_featured_mrp.setText(getString(R.string.rupee_symbol) + String.valueOf(Double.parseDouble(featuredBook.get("mrp").toString())));
+                    tv_featured_mrp.setPaintFlags(tv_featured_mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    tv_featured_price.setText(getString(R.string.rupee_symbol) + String.valueOf(Double.parseDouble(featuredBook.get("price").toString())));
+
+
+                }
+            }
+        });
+
         db.collection("android_v1_0_0").document("section1").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -247,18 +309,9 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
+    }
 
-        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
-        authors.add(new HomeAuthor("Chetan Bhagat", "https://i.gadgets360cdn.com/large/chetan_bhagat_facebook_full_1524833671640.jpg?", "CHETAN_BHAGAT"));
-        authors.add(new HomeAuthor("Arthur Conan Doyle", "https://www.thefamouspeople.com/profiles/images/sir-arthur-conan-doyle-18.jpg", "CHETAN_BHAGAT"));
-        authors.add(new HomeAuthor("JK Rowling", "https://static.timesofisrael.com/www/uploads/2018/04/AP_16267553017862-e1524077573580.jpg", "CHETAN_BHAGAT"));
-        authors.add(new HomeAuthor("Steve Jobs", "https://cdn.vox-cdn.com/thumbor/DVN7eqE1o8HeBOP-jg15YHTsiLY=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/assets/1496753/stevejobs.jpg", "CHETAN_BHAGAT"));
-        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
-        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
-        authors.add(new HomeAuthor("Chetan Bhagat", "https://images.indianexpress.com/2016/06/chetan-bhagat-lead.jpg", "CHETAN_BHAGAT"));
-
-        authorAdapter.setAuthors(authors);
-        rv_authors.setAdapter(authorAdapter);
+    private void setSectionNames() {
 
     }
 

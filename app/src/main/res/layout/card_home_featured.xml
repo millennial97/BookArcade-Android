@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/card_featured"
     app:cardCornerRadius="2dp"
     app:cardElevation="2dp"
     android:layout_margin="4dp"
@@ -13,10 +14,10 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/img_book"
+            android:id="@+id/img_featured_book"
             android:layout_width="120dp"
             android:layout_height="180dp"
-            android:layout_marginBottom="2dp"
+            android:layout_margin="4dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/book_image"
             android:scaleType="fitXY" />
@@ -25,10 +26,10 @@
             android:id="@+id/view"
             android:layout_width="0dp"
             android:layout_height="2dp"
-            android:layout_toEndOf="@id/img_book" />
+            android:layout_toEndOf="@id/img_featured_book" />
 
         <TextView
-            android:id="@+id/tv_book_title"
+            android:id="@+id/tv_featured_book_title"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,12 +41,12 @@
             android:textColor="@android:color/black" />
 
         <TextView
-            android:id="@+id/tv_book_description"
+            android:id="@+id/tv_featured_book_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_book_title"
+            android:layout_below="@id/tv_featured_book_title"
             android:layout_marginEnd="16dp"
-            android:maxLines="6"
+            android:maxLines="8"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_toEndOf="@id/view"
@@ -54,32 +55,32 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/tv_book_author"
+            android:id="@+id/tv_featured_book_author"
             android:text="@string/author_name"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="8dp"
             android:textSize="14sp"
             android:layout_marginTop="4dp"
-            android:layout_below="@id/tv_book_description"
+            android:layout_below="@id/tv_featured_book_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/tv_price"
-            android:layout_alignBottom="@id/img_book"
+            android:id="@+id/tv_featured_price"
+            android:layout_alignBottom="@id/img_featured_book"
             android:layout_marginBottom="8dp"
             android:text="@string/price"
             android:textSize="16sp"
             android:layout_marginEnd="32dp"
-            android:layout_toStartOf="@id/tv_mrp"
+            android:layout_toStartOf="@id/tv_featured_mrp"
             android:textColor="@color/colorAccent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
 
         <TextView
-            android:id="@+id/tv_mrp"
-            android:layout_alignBottom="@id/img_book"
+            android:id="@+id/tv_featured_mrp"
+            android:layout_alignBottom="@id/img_featured_book"
             android:layout_marginBottom="8dp"
             android:text="@string/mrp"
             android:textSize="14sp"
