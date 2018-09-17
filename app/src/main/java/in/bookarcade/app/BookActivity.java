@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +37,8 @@ public class BookActivity extends AppCompatActivity {
     private Button btn_buy, btn_rent;
     private ImageButton btn_cart, btn_wishlist;
     private Intent intent;
+    private RelativeLayout mainLayout;
+    private ProgressBar progressBar;
 
     //External types
     private FirebaseAuth mAuth;
@@ -66,6 +70,10 @@ public class BookActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        mainLayout = findViewById(R.id.mainLayout);
+        progressBar = findViewById(R.id.progress_bar);
+
+        //ImageViews
         img_author = findViewById(R.id.img_author);
         img_book = findViewById(R.id.img_book);
 
@@ -124,6 +132,9 @@ public class BookActivity extends AppCompatActivity {
                     tv_book_release_date.setText(book.get("release_date").toString());
                     tv_book_pages.setText(Integer.parseInt(book.get("pages").toString()) + " " + getString(R.string._pages));
                     tv_mrp.setText(getString(R.string.mrp_rupee) + Double.parseDouble(book.get("mrp").toString()));
+
+                    progressBar.setVisibility(View.GONE);
+                    mainLayout.setVisibility(View.VISIBLE);
                 }
             }
         });
