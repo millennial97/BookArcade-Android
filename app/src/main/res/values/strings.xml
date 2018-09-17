@@ -62,4 +62,5 @@
     <string name="mrp_rupee">M.R.P - ₹</string>
     <string name="language_">Language: </string>
     <string name="isbn_">ISBN: </string>
+    <string name="carousel_banner_item">Carousel Banner Item</string>
 </resources>

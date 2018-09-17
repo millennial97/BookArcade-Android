@@ -116,10 +116,10 @@ public class HomeFragment extends Fragment {
         books10 = new ArrayList<>();
         authors = new ArrayList<>();
 
-        carouselImg.add(new CarouselItem("https://www.pugh.co.uk/wp-content/uploads/2018/03/Sophos-Intercept-X--770x377.jpg"));
-        carouselImg.add(new CarouselItem("http://www.emilylistman.com/wp-content/uploads/2018/06/home-improvement-770x377.jpeg"));
-        carouselImg.add(new CarouselItem("http://beautifultrouble.org/wp-content/themes/beautifultrouble/img/BT_Banners4.jpg"));
-        carouselImg.add(new CarouselItem("http://beautifultrouble.org/wp-content/themes/beautifultrouble/img/BT_Banners4.jpg"));
+        carouselImg.add(new CarouselItem("https://images-eu.ssl-images-amazon.com/images/G/31/img18/Books/092018/CB/1134867_750x486.jpg"));
+        carouselImg.add(new CarouselItem("https://images-eu.ssl-images-amazon.com/images/G/31/img18/Books/082018/ChildrenBookshelf/Ingress/1134387_BooksHomepage-Tile3_750x486_1536207908.jpg"));
+        carouselImg.add(new CarouselItem("https://images-eu.ssl-images-amazon.com/images/G/31/img18/Books/Editorials/750x486_BXHPTile_TravellersStore_2.jpg"));
+        carouselImg.add(new CarouselItem("https://images-eu.ssl-images-amazon.com/images/G/31/img18/Books/Editorials/1101443_750x486_HPTile_3.jpg"));
 
         adapter = new CarouselViewPagerAdapter(getContext(), carouselImg);
         bookAdapter = new HomeBookAdapter(getContext());
@@ -225,7 +225,7 @@ public class HomeFragment extends Fragment {
         db.collection("android_v1_0_0").document("section1").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                tv_section1.setText(task.getResult().getData().get("section_name").toString());
+                tv_section1.setText(Objects.requireNonNull(task.getResult().getData()).get("section_name").toString());
             }
         });
 
@@ -238,7 +238,7 @@ public class HomeFragment extends Fragment {
                             Map<String, Object> book = document.getData();
                             if (book != null) {
                                 books.add(new HomeBook(book.get("title").toString(), book.get("book_id").toString(),
-                                        book.get("m_image_url").toString(), book.get("author").toString(), Double.parseDouble(book.get("mrp").toString()),
+                                        book.get("s_image_url").toString(), book.get("author").toString(), Double.parseDouble(book.get("mrp").toString()),
                                         Double.parseDouble(book.get("price").toString())));
                             }
                         }

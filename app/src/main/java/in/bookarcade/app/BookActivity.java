@@ -115,7 +115,7 @@ public class BookActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 Map<String, Object> book = task.getResult().getData();
                 if (book != null) {
-                    UniversalImageLoader.setImage(book.get("m_image_url").toString(), img_book, null);
+                    UniversalImageLoader.setImage(book.get("s_image_url").toString(), img_book, null);
                     tv_book_title.setText(book.get("title").toString());
                     tv_book_author.setText(book.get("author").toString());
                     tv_book_language.setText(getString(R.string.language_) + " " + book.get("language").toString());
