@@ -273,11 +273,31 @@ public class HomeFragment extends Fragment {
                     UniversalImageLoader.setImage(featuredBook.get("s_image_url").toString(), img_featured, null);
                     tv_featured.setText(featuredBook.get("section_name").toString());
                     tv_featured_book_title.setText(featuredBook.get("title").toString());
-                    tv_featured_book_author.setText(getString(R.string._) + featuredBook.get("author").toString());
+                    tv_featured_book_author.setText(getString(R.string.hyphen) + featuredBook.get("author").toString());
                     tv_featured_book_description.setText(featuredBook.get("description").toString());
                     tv_featured_mrp.setText(getString(R.string.rupee_symbol) + String.valueOf(Double.parseDouble(featuredBook.get("mrp").toString())));
                     tv_featured_mrp.setPaintFlags(tv_featured_mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     tv_featured_price.setText(getString(R.string.rupee_symbol) + String.valueOf(Double.parseDouble(featuredBook.get("price").toString())));
+
+
+                }
+            }
+        });
+
+        //Spotlight
+        db.collection("android_v1_0_0").document("spotlight").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Map<String, Object> spotlightBook = task.getResult().getData();
+                if (spotlightBook != null) {
+                    UniversalImageLoader.setImage(spotlightBook.get("s_image_url").toString(), img_spotlight, null);
+                    tv_spotlight.setText(spotlightBook.get("section_name").toString());
+                    tv_spotlight_book_title.setText(spotlightBook.get("title").toString());
+                    tv_spotlight_book_author.setText(getString(R.string.hyphen) + spotlightBook.get("author").toString());
+                    tv_spotlight_book_description.setText(spotlightBook.get("description").toString());
+                    tv_spotlight_mrp.setText(getString(R.string.rupee_symbol) + String.valueOf(Double.parseDouble(spotlightBook.get("mrp").toString())));
+                    tv_spotlight_mrp.setPaintFlags(tv_spotlight_mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    tv_spotlight_price.setText(getString(R.string.rupee_symbol) + String.valueOf(Double.parseDouble(spotlightBook.get("price").toString())));
 
 
                 }

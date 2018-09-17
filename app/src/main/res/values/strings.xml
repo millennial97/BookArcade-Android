@@ -64,5 +64,5 @@
     <string name="isbn_">ISBN: </string>
     <string name="carousel_banner_item">Carousel Banner Item</string>
     <string name="rupee_symbol">₹</string>
-    <string name="_">-</string>
+    <string name="hyphen">-</string>
 </resources>
