@@ -56,6 +56,9 @@ dependencies {
     //CarouselView
     implementation 'com.synnapps:carouselview:0.1.5'
 
+    //ExpandableTextView
+    implementation 'at.blogc:expandabletextview:1.0.5'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

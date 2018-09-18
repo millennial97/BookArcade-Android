@@ -22,7 +22,7 @@
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
+            android:visibility="gone"
             tools:context=".BookActivity">
 
             <ImageView
@@ -251,19 +251,9 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_read_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/view3"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/read_more"
-                android:textColor="@color/colorPrimary" />
-
-            <TextView
+            <at.blogc.android.views.ExpandableTextView
                 android:id="@+id/tv_about"
+                android:maxLines="6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_head_about"
@@ -271,11 +261,19 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp" />
 
+            <Button
+                android:id="@+id/btn_about_expand"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/tv_about"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_expand"/>
+
             <TextView
                 android:id="@+id/tv_head_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_about"
+                android:layout_below="@id/btn_about_expand"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/about_the_author"

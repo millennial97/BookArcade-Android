@@ -1,10 +1,12 @@
 package in.bookarcade.app;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,22 +24,25 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import at.blogc.android.views.ExpandableTextView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.bookarcade.app.utils.UniversalImageLoader;
 
 public class BookActivity extends AppCompatActivity {
 
     //Java built-in types
-
+    private DecimalFormat decimalFormat = new DecimalFormat("###.##");
 
     //Android widgets
     private ImageView img_book;
-    private TextView tv_book_title, tv_book_author, tv_book_publisher, tv_book_release_date, tv_book_pages, tv_book_isbn, tv_book_language, tv_mrp, tv_read_more, tv_about, tv_about_author;
-    private Button btn_buy, btn_rent;
+    private TextView tv_book_title, tv_book_author, tv_book_publisher, tv_book_release_date, tv_book_pages, tv_book_isbn, tv_book_language, tv_mrp, tv_read_more, tv_about_author;
+    private ExpandableTextView tv_about;
+    private Button btn_buy, btn_rent, btn_about_expand;
     private ImageButton btn_cart, btn_wishlist;
     private Intent intent;
     private RelativeLayout mainLayout;
@@ -91,7 +96,6 @@ public class BookActivity extends AppCompatActivity {
         tv_book_release_date = findViewById(R.id.tv_book_release_date);
         tv_book_pages = findViewById(R.id.tv_book_pages);
         tv_mrp = findViewById(R.id.tv_mrp);
-        tv_read_more = findViewById(R.id.tv_read_more);
         tv_about = findViewById(R.id.tv_about);
         tv_about_author = findViewById(R.id.tv_about_author);
 
@@ -99,13 +103,23 @@ public class BookActivity extends AppCompatActivity {
         btn_buy = findViewById(R.id.btn_buy);
         btn_rent = findViewById(R.id.btn_rent);
         btn_cart = findViewById(R.id.btn_cart);
+        btn_about_expand = findViewById(R.id.btn_about_expand);
         btn_wishlist = findViewById(R.id.btn_wishlist);
 
         //Listeners
-        btn_cart.setOnClickListener(new View.OnClickListener() {
+        btn_about_expand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tv_about.toggle();
+                btn_about_expand.setBackgroundResource(tv_about.isExpanded() ? R.drawable.ic_expand: R.drawable.ic_collapse);
+            }
+        });
 
+        tv_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tv_about.toggle();
+                btn_about_expand.setBackgroundResource(tv_about.isExpanded() ? R.drawable.ic_expand: R.drawable.ic_collapse);
             }
         });
     }
@@ -144,6 +158,7 @@ public class BookActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (btn_cart.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_cart_plus).getConstantState())) {
                             btn_cart.setBackgroundResource(R.drawable.ic_cart_down);
+                            Toast.makeText(BookActivity.this, "Added to cart", Toast.LENGTH_SHORT).show();
                         } else {
                             btn_cart.setBackgroundResource(R.drawable.ic_cart_plus);
                         }
@@ -201,8 +216,13 @@ public class BookActivity extends AppCompatActivity {
                         tv_book_publisher.setText(book.get("publisher").toString());
                         tv_book_release_date.setText(book.get("release_date").toString());
                         tv_book_pages.setText(Integer.parseInt(book.get("pages").toString()) + " " + getString(R.string._pages));
-                        tv_mrp.setText(getString(R.string.mrp_rupee) + Double.parseDouble(book.get("mrp").toString()));
-                        tv_about.setText(book.get("short_description").toString());
+                        tv_mrp.setText(getString(R.string.rupee_symbol) + Double.parseDouble(book.get("mrp").toString()));
+                        tv_mrp.setPaintFlags(tv_mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        tv_about.setText(Html.fromHtml(book.get("long_description").toString()));
+
+                        btn_buy.setText("Purchase - " + getString(R.string.rupee_symbol) + book.get("price").toString());
+                        btn_rent.setText("Rent - " + getString(R.string.rupee_symbol) + decimalFormat.format(Double.parseDouble(book.get("price").toString()) * 0.4));
+//                        btn_rent.setText("Rent - " + getString(R.string.rupee_symbol) + (Math.round(Double.parseDouble(book.get("price").toString())) * 0.4 * 100.0/100.0));
 
                         progressBar.setVisibility(View.GONE);
                         mainLayout.setVisibility(View.VISIBLE);
