@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -45,6 +46,7 @@ public class BookActivity extends AppCompatActivity {
     //External types
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private FirebaseUser mUser;
     private CircleImageView img_author;
 
     @Override
@@ -68,6 +70,7 @@ public class BookActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        mUser = mAuth.getCurrentUser();
 
     }
 
@@ -126,6 +129,50 @@ public class BookActivity extends AppCompatActivity {
         db.collection("master_authors").document("Ravish Kumar").set(author);
         */
 
+        //Check Cart & Wishlist
+        db.collection("users").document(mUser.getEmail()).collection("cart").document(intent.getStringExtra("book_id"))
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.getResult().exists()) {
+                    if (btn_cart.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_cart_plus))) {
+                        btn_cart.setBackgroundResource(R.drawable.ic_cart_down);
+                    }
+                }
+                btn_cart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (btn_cart.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_cart_plus).getConstantState())) {
+                            btn_cart.setBackgroundResource(R.drawable.ic_cart_down);
+                        } else {
+                            btn_cart.setBackgroundResource(R.drawable.ic_cart_plus);
+                        }
+                    }
+                });
+            }
+        });
+
+        db.collection("users").document(mUser.getEmail()).collection("wishlist").document(intent.getStringExtra("book_id"))
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (!task.getResult().exists()) {
+                    if (btn_wishlist.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_wishlist))) {
+                        btn_wishlist.setBackgroundResource(R.drawable.ic_wishlist_added);
+                    }
+                }
+                btn_wishlist.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (btn_wishlist.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_wishlist).getConstantState())) {
+                            btn_wishlist.setBackgroundResource(R.drawable.ic_wishlist_added);
+                        } else {
+                            btn_wishlist.setBackgroundResource(R.drawable.ic_wishlist);
+                        }
+                    }
+                });
+            }
+        });
 
         db.collection("master_authors").document(intent.getStringExtra("author")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
