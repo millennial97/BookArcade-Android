@@ -37,6 +37,8 @@ public class BookActivity extends AppCompatActivity {
 
     //Java built-in types
     private DecimalFormat decimalFormat = new DecimalFormat("###.##");
+    private String title, author, book_id, m_image_url, s_image_url;
+    private double mrp, price, goodreads_rating;
 
     //Android widgets
     private ImageView img_book;
@@ -143,15 +145,13 @@ public class BookActivity extends AppCompatActivity {
         db.collection("master_authors").document("Ravish Kumar").set(author);
         */
 
-        //Check Cart & Wishlist
+        //Initialize cart
         db.collection("users").document(mUser.getEmail()).collection("cart").document(intent.getStringExtra("book_id"))
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.getResult().exists()) {
-                    if (btn_cart.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_cart_plus))) {
                         btn_cart.setBackgroundResource(R.drawable.ic_cart_down);
-                    }
                 }
                 btn_cart.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -159,14 +159,27 @@ public class BookActivity extends AppCompatActivity {
                         if (btn_cart.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_cart_plus).getConstantState())) {
                             btn_cart.setBackgroundResource(R.drawable.ic_cart_down);
                             Toast.makeText(BookActivity.this, "Added to cart", Toast.LENGTH_SHORT).show();
+                            Map<String, Object> cartBook = new HashMap<>();
+                            cartBook.put("title", title);
+                            cartBook.put("book_id", book_id);
+                            cartBook.put("author", author);
+                            cartBook.put("mrp", mrp);
+                            cartBook.put("price", price);
+                            cartBook.put("s_image_url", s_image_url);
+                            cartBook.put("goodreads_rating", goodreads_rating);
+
+                            db.collection("users").document(mUser.getEmail()).collection("cart").document(book_id).set(cartBook);
                         } else {
                             btn_cart.setBackgroundResource(R.drawable.ic_cart_plus);
+                            Toast.makeText(BookActivity.this, "Removed from cart", Toast.LENGTH_SHORT).show();
+                            db.collection("users").document(mUser.getEmail()).collection("cart").document(book_id).delete();
                         }
                     }
                 });
             }
         });
 
+        //Initialize wishlist
         db.collection("users").document(mUser.getEmail()).collection("wishlist").document(intent.getStringExtra("book_id"))
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -189,6 +202,7 @@ public class BookActivity extends AppCompatActivity {
             }
         });
 
+        //Set author details
         db.collection("master_authors").document(intent.getStringExtra("author")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -200,6 +214,7 @@ public class BookActivity extends AppCompatActivity {
             }
         });
 
+        //Set book details
         db.collection("master_books").document(intent.getStringExtra("book_id")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -209,19 +224,30 @@ public class BookActivity extends AppCompatActivity {
                     if (book != null) {
                         UniversalImageLoader.setImage(book.get("m_image_url").toString(), img_book, null);
 
-                        tv_book_title.setText(book.get("title").toString());
-                        tv_book_author.setText(book.get("author").toString());
+                        book_id = intent.getStringExtra("book_id");
+                        s_image_url = book.get("s_image_url").toString();
+                        goodreads_rating = Double.parseDouble(book.get("goodreads_rating").toString());
+
+                        title = book.get("title").toString();
+                        tv_book_title.setText(title);
+
+                        author = book.get("author").toString();
+                        tv_book_author.setText(author);
+
                         tv_book_language.setText(getString(R.string.language_) + " " + book.get("language").toString());
                         tv_book_isbn.setText(getString(R.string.isbn_) + " " + book.get("isbn13").toString());
                         tv_book_publisher.setText(book.get("publisher").toString());
                         tv_book_release_date.setText(book.get("release_date").toString());
                         tv_book_pages.setText(Integer.parseInt(book.get("pages").toString()) + " " + getString(R.string._pages));
+
+                        mrp = Double.parseDouble(book.get("mrp").toString());
                         tv_mrp.setText(getString(R.string.rupee_symbol) + Double.parseDouble(book.get("mrp").toString()));
                         tv_mrp.setPaintFlags(tv_mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                         tv_about.setText(Html.fromHtml(book.get("long_description").toString()));
 
+                        price = Double.parseDouble(book.get("price").toString());
                         btn_buy.setText("Purchase - " + getString(R.string.rupee_symbol) + book.get("price").toString());
-                        btn_rent.setText("Rent - " + getString(R.string.rupee_symbol) + decimalFormat.format(Double.parseDouble(book.get("price").toString()) * 0.4));
+                        btn_rent.setText("Rent - " + getString(R.string.rupee_symbol) + decimalFormat.format(Double.parseDouble(book.get("price").toString()) * 0.40));
 //                        btn_rent.setText("Rent - " + getString(R.string.rupee_symbol) + (Math.round(Double.parseDouble(book.get("price").toString())) * 0.4 * 100.0/100.0));
 
                         progressBar.setVisibility(View.GONE);
