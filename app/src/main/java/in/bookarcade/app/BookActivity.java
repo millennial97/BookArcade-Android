@@ -184,18 +184,30 @@ public class BookActivity extends AppCompatActivity {
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (!task.getResult().exists()) {
-                    if (btn_wishlist.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_wishlist))) {
+                if (task.getResult().exists()) {
                         btn_wishlist.setBackgroundResource(R.drawable.ic_wishlist_added);
-                    }
                 }
                 btn_wishlist.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (btn_wishlist.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_wishlist).getConstantState())) {
                             btn_wishlist.setBackgroundResource(R.drawable.ic_wishlist_added);
+                            Toast.makeText(BookActivity.this, "Added to wishlist", Toast.LENGTH_SHORT).show();
+
+                            Map<String, Object> wishlistBook = new HashMap<>();
+                            wishlistBook.put("title", title);
+                            wishlistBook.put("book_id", book_id);
+                            wishlistBook.put("author", author);
+                            wishlistBook.put("mrp", mrp);
+                            wishlistBook.put("price", price);
+                            wishlistBook.put("s_image_url", s_image_url);
+                            wishlistBook.put("goodreads_rating", goodreads_rating);
+
+                            db.collection("users").document(mUser.getEmail()).collection("wishlist").document(book_id).set(wishlistBook);
                         } else {
                             btn_wishlist.setBackgroundResource(R.drawable.ic_wishlist);
+                            Toast.makeText(BookActivity.this, "Removed from wishlist", Toast.LENGTH_SHORT).show();
+                            db.collection("users").document(mUser.getEmail()).collection("wishlist").document(book_id).delete();
                         }
                     }
                 });
