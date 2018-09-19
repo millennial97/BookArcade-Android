@@ -1,6 +1,8 @@
 package in.bookarcade.app;
 
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -20,11 +22,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import in.bookarcade.app.adapter.CartBookAdapter;
 import in.bookarcade.app.model.CartBook;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     //Java built-in types
     double cart_total = 0.0;
@@ -36,6 +39,7 @@ public class CartActivity extends AppCompatActivity {
     private TextView tv_cart_empty, tv_head_total, tv_total;
     private ProgressBar progressBar;
     private RelativeLayout mainLayout;
+    private SwipeRefreshLayout refreshLayout;
 
     //External types
     private FirebaseAuth mAuth;
@@ -53,6 +57,10 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void preInit() {
+        ActionBar actionBar = this.getSupportActionBar();
+        Objects.requireNonNull(actionBar).setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_action_up);
+
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
@@ -65,6 +73,7 @@ public class CartActivity extends AppCompatActivity {
         rv_books = findViewById(R.id.rv_books);
         progressBar = findViewById(R.id.progress_bar);
         mainLayout = findViewById(R.id.mainLayout);
+        refreshLayout = findViewById(R.id.refreshLayout);
 
         //TextViews
         tv_cart_empty = findViewById(R.id.tv_cart_empty);
@@ -75,7 +84,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void mainInit() {
-        db.collection("users").document(mUser.getEmail()).collection("cart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("users").document(Objects.requireNonNull(mUser.getEmail())).collection("cart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 List<DocumentSnapshot> documents = task.getResult().getDocuments();
@@ -83,17 +92,53 @@ public class CartActivity extends AppCompatActivity {
                 if (documents.size() != 0) {
                     for (DocumentSnapshot document : documents) {
                         Map<String, Object> book = document.getData();
-                        books.add(new CartBook(book.get("title").toString(), document.getId(), book.get("s_image_url").toString(), book.get("author").toString(),
+                        books.add(new CartBook(Objects.requireNonNull(book).get("title").toString(), document.getId(), book.get("s_image_url").toString(), book.get("author").toString(),
                                 Double.parseDouble(book.get("mrp").toString()), Double.parseDouble(book.get("price").toString())));
                     }
                     bookAdapter.setBooks(books);
                     mainLayout.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
+                    refreshLayout.setOnRefreshListener(CartActivity.this);
+                    if (refreshLayout.isRefreshing())
+                        refreshLayout.setRefreshing(false);
                 } else {
 
                 }
 
             }
         });
+    }
+
+    private void refreshList() {
+        books.clear();
+        progressBar.setVisibility(View.VISIBLE);
+        mainLayout.setVisibility(View.GONE);
+        db.collection("users").document(Objects.requireNonNull(mUser.getEmail())).collection("cart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<DocumentSnapshot> documents = task.getResult().getDocuments();
+
+                if (documents.size() != 0) {
+                    for (DocumentSnapshot document : documents) {
+                        Map<String, Object> book = document.getData();
+                        books.add(new CartBook(Objects.requireNonNull(book).get("title").toString(), document.getId(), book.get("s_image_url").toString(), book.get("author").toString(),
+                                Double.parseDouble(book.get("mrp").toString()), Double.parseDouble(book.get("price").toString())));
+                    }
+                    bookAdapter.setBooks(books);
+                    mainLayout.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    if (refreshLayout.isRefreshing())
+                        refreshLayout.setRefreshing(false);
+                } else {
+
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshList();
     }
 }

@@ -1,91 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".CartActivity">
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/mainLayout"
-        android:visibility="visible"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".CartActivity">
 
-        <TextView
-            android:id="@+id/tv_cart_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="48dp"
-            android:layout_marginStart="48dp"
-            android:text="@string/cart_empty"
-            android:textAlignment="center"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/tv_head_total"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/cart_subtotal"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/mrp"
-            android:textSize="18sp" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_books"
+        <RelativeLayout
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/tv_total"
-            android:orientation="vertical"
-            android:layout_marginBottom="40dp"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+            android:visibility="gone">
 
-        <View
-            android:layout_below="@id/rv_books"
-            android:layout_centerHorizontal="true"
-            android:layout_width="1dp"
-            android:layout_above="@id/btn_rent"
-            android:id="@+id/view"
-            android:layout_height="0dp" />
-        
-        <Button
-            android:id="@+id/btn_rent"
-            android:text="@string/rent"
-            android:textColor="@color/colorPrimary"
-            android:background="@color/colorAccent"
-            android:layout_alignParentBottom="true"
-            android:layout_toStartOf="@id/view"
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/tv_cart_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="48dp"
+                android:layout_marginStart="48dp"
+                android:text="@string/cart_empty"
+                android:textAlignment="center"
+                android:visibility="gone" />
 
-        <Button
-            android:id="@+id/btn_checkout"
-            android:text="@string/checkout"
-            android:textColor="@color/colorPrimary"
-            android:background="@color/colorAccent"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@id/view"
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            <TextView
+                android:id="@+id/tv_head_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@id/tv_total"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/cart_subtotal"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/mrp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_charges"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_below="@id/tv_head_total"
+                android:text="@string/charges_applicable"
+                android:textSize="12sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_books"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tv_charges"
+                android:layout_marginBottom="40dp"
+                android:orientation="vertical"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_above="@id/btn_rent"
+                android:layout_below="@id/rv_books"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:id="@+id/btn_rent"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@id/view"
+                android:background="@color/colorAccent"
+                android:text="@string/rent"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/btn_checkout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@id/view"
+                android:background="@color/colorAccent"
+                android:text="@string/checkout"
+                android:textColor="@color/colorPrimary" />
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
 
     </RelativeLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-
-</RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

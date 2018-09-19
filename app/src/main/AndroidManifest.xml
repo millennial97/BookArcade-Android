@@ -83,7 +83,8 @@
                     android:scheme="http" />
             </intent-filter>
         </activity>
-        <activity android:name=".CartActivity"></activity>
+        <activity android:name=".CartActivity"
+            android:label="Cart"/>
     </application>
 
 </manifest>
