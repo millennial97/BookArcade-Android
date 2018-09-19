@@ -82,4 +82,7 @@
     <string name="phone_number">+91 1234567890</string>
     <string name="change">Change</string>
     <string name="add_new">+ Add New</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="cash_on_delivery">Cash on Delivery</string>
+    <string name="paytm_options">Paytm (Wallet/Card/Net Banking)</string>
 </resources>
