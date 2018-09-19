@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -90,6 +91,7 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
                 List<DocumentSnapshot> documents = task.getResult().getDocuments();
 
                 if (documents.size() != 0) {
+                    tv_cart_empty.setVisibility(View.GONE);
                     for (DocumentSnapshot document : documents) {
                         Map<String, Object> book = document.getData();
                         books.add(new CartBook(Objects.requireNonNull(book).get("title").toString(), document.getId(), book.get("s_image_url").toString(), book.get("author").toString(),
@@ -102,7 +104,10 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
                     if (refreshLayout.isRefreshing())
                         refreshLayout.setRefreshing(false);
                 } else {
-
+                    refreshLayout.setOnRefreshListener(CartActivity.this);
+                    tv_cart_empty.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    refreshLayout.setRefreshing(false);
                 }
 
             }
@@ -119,6 +124,7 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
                 List<DocumentSnapshot> documents = task.getResult().getDocuments();
 
                 if (documents.size() != 0) {
+                    tv_cart_empty.setVisibility(View.GONE);
                     for (DocumentSnapshot document : documents) {
                         Map<String, Object> book = document.getData();
                         books.add(new CartBook(Objects.requireNonNull(book).get("title").toString(), document.getId(), book.get("s_image_url").toString(), book.get("author").toString(),
@@ -127,10 +133,14 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
                     bookAdapter.setBooks(books);
                     mainLayout.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
+                    refreshLayout.setOnRefreshListener(CartActivity.this);
                     if (refreshLayout.isRefreshing())
                         refreshLayout.setRefreshing(false);
                 } else {
-
+                    tv_cart_empty.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    if (refreshLayout.isRefreshing())
+                        refreshLayout.setRefreshing(false);
                 }
 
             }
@@ -140,5 +150,17 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Override
     public void onRefresh() {
         refreshList();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -3,6 +3,7 @@ package in.bookarcade.app;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -158,7 +159,13 @@ public class BookActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (btn_cart.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_cart_plus).getConstantState())) {
                             btn_cart.setBackgroundResource(R.drawable.ic_cart_down);
-                            Toast.makeText(BookActivity.this, "Added to cart", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(mainLayout, "Added to cart", Snackbar.LENGTH_SHORT)
+                            .setAction("Cart", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    startActivity(new Intent(BookActivity.this, CartActivity.class));
+                                }
+                            }).show();
                             Map<String, Object> cartBook = new HashMap<>();
                             cartBook.put("title", title);
                             cartBook.put("book_id", book_id);
@@ -171,7 +178,7 @@ public class BookActivity extends AppCompatActivity {
                             db.collection("users").document(mUser.getEmail()).collection("cart").document(book_id).set(cartBook);
                         } else {
                             btn_cart.setBackgroundResource(R.drawable.ic_cart_plus);
-                            Toast.makeText(BookActivity.this, "Removed from cart", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(mainLayout, "Removed from cart", Snackbar.LENGTH_SHORT).show();
                             db.collection("users").document(mUser.getEmail()).collection("cart").document(book_id).delete();
                         }
                     }
@@ -192,7 +199,7 @@ public class BookActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (btn_wishlist.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_wishlist).getConstantState())) {
                             btn_wishlist.setBackgroundResource(R.drawable.ic_wishlist_added);
-                            Toast.makeText(BookActivity.this, "Added to wishlist", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(mainLayout, "Added to wishlist", Snackbar.LENGTH_SHORT).show();
 
                             Map<String, Object> wishlistBook = new HashMap<>();
                             wishlistBook.put("title", title);
@@ -206,7 +213,7 @@ public class BookActivity extends AppCompatActivity {
                             db.collection("users").document(mUser.getEmail()).collection("wishlist").document(book_id).set(wishlistBook);
                         } else {
                             btn_wishlist.setBackgroundResource(R.drawable.ic_wishlist);
-                            Toast.makeText(BookActivity.this, "Removed from wishlist", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(mainLayout, "Removed from wishlist", Snackbar.LENGTH_SHORT).show();
                             db.collection("users").document(mUser.getEmail()).collection("wishlist").document(book_id).delete();
                         }
                     }
