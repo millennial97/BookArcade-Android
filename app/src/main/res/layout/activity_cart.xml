@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".CartActivity">
@@ -70,30 +71,11 @@
                 android:orientation="vertical"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:layout_above="@id/btn_rent"
-                android:layout_below="@id/rv_books"
-                android:layout_centerHorizontal="true" />
-
-            <Button
-                android:id="@+id/btn_rent"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_alignParentBottom="true"
-                android:layout_toStartOf="@id/view"
-                android:background="@color/colorAccent"
-                android:text="@string/rent"
-                android:textColor="@color/colorPrimary" />
-
             <Button
                 android:id="@+id/btn_checkout"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
-                android:layout_toEndOf="@id/view"
                 android:background="@color/colorAccent"
                 android:text="@string/checkout"
                 android:textColor="@color/colorPrimary" />

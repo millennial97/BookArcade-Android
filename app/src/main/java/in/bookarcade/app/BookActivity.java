@@ -38,12 +38,23 @@ public class BookActivity extends AppCompatActivity {
 
     //Java built-in types
     private DecimalFormat decimalFormat = new DecimalFormat("###.##");
-    private String title, author, book_id, m_image_url, s_image_url;
+    private String title;
+    private String author;
+    private String book_id;
+    private String s_image_url;
     private double mrp, price, goodreads_rating;
 
     //Android widgets
     private ImageView img_book;
-    private TextView tv_book_title, tv_book_author, tv_book_publisher, tv_book_release_date, tv_book_pages, tv_book_isbn, tv_book_language, tv_mrp, tv_read_more, tv_about_author;
+    private TextView tv_book_title;
+    private TextView tv_book_author;
+    private TextView tv_book_publisher;
+    private TextView tv_book_release_date;
+    private TextView tv_book_pages;
+    private TextView tv_book_isbn;
+    private TextView tv_book_language;
+    private TextView tv_mrp;
+    private TextView tv_about_author;
     private ExpandableTextView tv_about;
     private Button btn_buy, btn_rent, btn_about_expand;
     private ImageButton btn_cart, btn_wishlist;
@@ -114,7 +125,7 @@ public class BookActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tv_about.toggle();
-                btn_about_expand.setBackgroundResource(tv_about.isExpanded() ? R.drawable.ic_expand: R.drawable.ic_collapse);
+                btn_about_expand.setBackgroundResource(tv_about.isExpanded() ? R.drawable.ic_expand : R.drawable.ic_collapse);
             }
         });
 
@@ -122,7 +133,7 @@ public class BookActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tv_about.toggle();
-                btn_about_expand.setBackgroundResource(tv_about.isExpanded() ? R.drawable.ic_expand: R.drawable.ic_collapse);
+                btn_about_expand.setBackgroundResource(tv_about.isExpanded() ? R.drawable.ic_expand : R.drawable.ic_collapse);
             }
         });
     }
@@ -147,25 +158,25 @@ public class BookActivity extends AppCompatActivity {
         */
 
         //Initialize cart
-        db.collection("users").document(mUser.getEmail()).collection("cart").document(intent.getStringExtra("book_id"))
+        db.collection("users").document(Objects.requireNonNull(mUser.getEmail())).collection("cart").document(intent.getStringExtra("book_id"))
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.getResult().exists()) {
-                        btn_cart.setBackgroundResource(R.drawable.ic_cart_down);
+                    btn_cart.setBackgroundResource(R.drawable.ic_cart_down);
                 }
                 btn_cart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (btn_cart.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_cart_plus).getConstantState())) {
+                        if (Objects.equals(btn_cart.getBackground().getConstantState(), getResources().getDrawable(R.drawable.ic_cart_plus).getConstantState())) {
                             btn_cart.setBackgroundResource(R.drawable.ic_cart_down);
                             Snackbar.make(mainLayout, "Added to cart", Snackbar.LENGTH_SHORT)
-                            .setAction("Cart", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    startActivity(new Intent(BookActivity.this, CartActivity.class));
-                                }
-                            }).show();
+                                    .setAction("Cart", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            startActivity(new Intent(BookActivity.this, CartActivity.class));
+                                        }
+                                    }).show();
                             Map<String, Object> cartBook = new HashMap<>();
                             cartBook.put("title", title);
                             cartBook.put("book_id", book_id);
@@ -192,12 +203,12 @@ public class BookActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.getResult().exists()) {
-                        btn_wishlist.setBackgroundResource(R.drawable.ic_wishlist_added);
+                    btn_wishlist.setBackgroundResource(R.drawable.ic_wishlist_added);
                 }
                 btn_wishlist.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (btn_wishlist.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.ic_wishlist).getConstantState())) {
+                        if (Objects.equals(btn_wishlist.getBackground().getConstantState(), getResources().getDrawable(R.drawable.ic_wishlist).getConstantState())) {
                             btn_wishlist.setBackgroundResource(R.drawable.ic_wishlist_added);
                             Snackbar.make(mainLayout, "Added to wishlist", Snackbar.LENGTH_SHORT).show();
 
@@ -265,8 +276,24 @@ public class BookActivity extends AppCompatActivity {
                         tv_about.setText(Html.fromHtml(book.get("long_description").toString()));
 
                         price = Double.parseDouble(book.get("price").toString());
+
                         btn_buy.setText("Purchase - " + getString(R.string.rupee_symbol) + book.get("price").toString());
+                        btn_buy.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent i = new Intent(BookActivity.this, PurchaseActivity.class);
+                                i.putExtra("book_id", book_id);
+                                startActivity(i);
+                            }
+                        });
+
                         btn_rent.setText("Rent - " + getString(R.string.rupee_symbol) + decimalFormat.format(Double.parseDouble(book.get("price").toString()) * 0.40));
+                        btn_rent.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
 //                        btn_rent.setText("Rent - " + getString(R.string.rupee_symbol) + (Math.round(Double.parseDouble(book.get("price").toString())) * 0.4 * 100.0/100.0));
 
                         progressBar.setVisibility(View.GONE);

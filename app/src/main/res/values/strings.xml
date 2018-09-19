@@ -69,4 +69,17 @@
     <string name="cart_subtotal">Cart Subtotal:</string>
     <string name="checkout">Checkout</string>
     <string name="charges_applicable">(Delivery charges might be applicable)</string>
+    <string name="cart_total">Cart total</string>
+    <string name="estimated_delivery">Estimated Delivery</string>
+    <string name="eta">2 to 5 days</string>
+    <string name="discount">Discount</string>
+    <string name="total">Total</string>
+    <string name="shipping">Shipping</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="shipping_address">Shipping Address</string>
+    <string name="display_name">Display Name</string>
+    <string name="address">Address</string>
+    <string name="phone_number">+91 1234567890</string>
+    <string name="change">Change</string>
+    <string name="add_new">+ Add New</string>
 </resources>

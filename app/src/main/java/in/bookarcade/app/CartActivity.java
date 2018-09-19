@@ -94,9 +94,11 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
                     tv_cart_empty.setVisibility(View.GONE);
                     for (DocumentSnapshot document : documents) {
                         Map<String, Object> book = document.getData();
+                        cart_total += Double.parseDouble(book.get("price").toString());
                         books.add(new CartBook(Objects.requireNonNull(book).get("title").toString(), document.getId(), book.get("s_image_url").toString(), book.get("author").toString(),
                                 Double.parseDouble(book.get("mrp").toString()), Double.parseDouble(book.get("price").toString())));
                     }
+
                     bookAdapter.setBooks(books);
                     mainLayout.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
