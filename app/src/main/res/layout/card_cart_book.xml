@@ -1,66 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="2dp">
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="33dp" />
-
-    <ImageView
-        android:id="@+id/img_book"
-        android:layout_width="50dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/book_image" />
-
-    <TextView
-        android:id="@+id/tv_book_title"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginEnd="16dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="14dp"
-        android:layout_toEndOf="@id/img_book"
-        android:text="@string/book_name"
-        android:textColor="@android:color/black" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_book_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textSize="12sp"
-        android:layout_below="@id/tv_book_title"
-        android:layout_toEndOf="@id/img_book"
-        android:text="@string/author_name" />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="33dp" />
 
-    <TextView
-        android:id="@+id/tv_price"
-        android:layout_toEndOf="@id/img_book"
-        android:layout_below="@id/tv_book_author"
-        android:layout_marginStart="8dp"
-        android:text="@string/price"
-        android:textColor="@color/colorAccent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/img_book"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/book_image" />
 
-    <TextView
-        android:id="@+id/tv_mrp"
-        android:layout_toEndOf="@id/tv_price"
-        android:layout_below="@id/tv_book_author"
-        android:layout_marginStart="8dp"
-        android:text="@string/mrp"
-        android:textSize="12sp"
-        android:layout_marginTop="2dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_book_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/img_book"
+            android:layout_toStartOf="@id/btn_options"
+            android:text="@string/book_name"
+            android:textColor="@android:color/black" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_book_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_book_title"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/img_book"
+            android:text="@string/author_name"
+            android:textSize="12sp" />
 
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_book_author"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/img_book"
+            android:text="@string/price"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/tv_mrp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_book_author"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/tv_price"
+            android:text="@string/mrp"
+            android:textSize="12sp" />
+
+        <ImageButton
+            android:id="@+id/btn_options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/ic_dots"
+            android:contentDescription="@string/options" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

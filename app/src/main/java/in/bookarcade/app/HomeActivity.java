@@ -224,6 +224,8 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.action_search) {
 
+        } else if (id == R.id.action_cart) {
+            startActivity(new Intent(HomeActivity.this, CartActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

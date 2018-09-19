@@ -66,4 +66,5 @@
     <string name="rupee_symbol">₹</string>
     <string name="hyphen">-</string>
     <string name="cart_empty">Your shopping cart is empty.</string>
+    <string name="cart_subtotal">Cart Subtotal:</string>
 </resources>
