@@ -67,7 +67,7 @@
 
         <TextView
             android:id="@+id/tv_featured_price"
-            android:layout_alignBottom="@id/img_featured_book"
+            android:layout_below="@id/tv_featured_book_author"
             android:layout_marginBottom="8dp"
             android:text="@string/price"
             android:textSize="16sp"
@@ -80,7 +80,7 @@
 
         <TextView
             android:id="@+id/tv_featured_mrp"
-            android:layout_alignBottom="@id/img_featured_book"
+            android:layout_below="@id/tv_featured_book_author"
             android:layout_marginBottom="8dp"
             android:text="@string/mrp"
             android:textSize="14sp"

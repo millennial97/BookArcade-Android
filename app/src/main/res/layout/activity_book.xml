@@ -8,9 +8,9 @@
     tools:context=".BookActivity">
 
     <RelativeLayout
-        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -22,121 +22,20 @@
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:context=".BookActivity">
 
-            <ImageView
-                android:id="@+id/img_book"
-                android:layout_width="120dp"
-                android:layout_height="180dp"
-                android:layout_marginBottom="12dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/book_image"
-                android:scaleType="fitXY" />
 
-            <TextView
-                android:id="@+id/tv_book_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_toEndOf="@id/img_book"
-                android:minLines="2"
-                android:text="@string/book_name"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
+            <include
+                android:id="@+id/layout_header"
+                layout="@layout/header_activity_book" />
 
-            <TextView
-                android:id="@+id/tv_book_author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_book_title"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_toEndOf="@id/img_book"
-                android:maxLines="1"
-                android:text="@string/author_name"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-
-            <TextView
-                android:id="@+id/tv_book_publisher"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_book_author"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_toEndOf="@id/img_book"
-                android:maxLines="1"
-                android:text="@string/publisher_name"
-                android:textSize="13sp" />
-
-
-            <TextView
-                android:id="@+id/tv_book_release_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_book_publisher"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_toEndOf="@id/img_book"
-                android:maxLines="1"
-                android:text="@string/release_date"
-                android:textSize="13sp" />
-
-
-            <TextView
-                android:id="@+id/tv_book_pages"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_book_release_date"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_toEndOf="@id/img_book"
-                android:maxLines="1"
-                android:text="@string/no_of_pages"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/tv_book_isbn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_book_pages"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_toEndOf="@id/img_book"
-                android:maxLines="1"
-                android:text="@string/isbn"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/tv_book_language"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_book_isbn"
-                android:layout_marginBottom="12dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_toEndOf="@id/img_book"
-                android:maxLines="1"
-                android:text="@string/no_of_pages"
-                android:textSize="13sp" />
 
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/img_book"
+                android:layout_below="@id/layout_header"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -253,21 +152,21 @@
 
             <at.blogc.android.views.ExpandableTextView
                 android:id="@+id/tv_about"
-                android:maxLines="6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_head_about"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp" />
+                android:layout_marginTop="4dp"
+                android:maxLines="6" />
 
             <Button
                 android:id="@+id/btn_about_expand"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/tv_about"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@drawable/ic_expand"/>
+                android:layout_below="@id/tv_about"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/ic_expand" />
 
             <TextView
                 android:id="@+id/tv_head_author"
