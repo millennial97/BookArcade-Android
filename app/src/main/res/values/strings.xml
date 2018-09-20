@@ -78,11 +78,19 @@
     <string name="order_summary">Order Summary</string>
     <string name="shipping_address">Shipping Address</string>
     <string name="display_name">Display Name</string>
-    <string name="address">Address</string>
     <string name="phone_number">+91 1234567890</string>
     <string name="change">Change</string>
     <string name="add_new">+ Add New</string>
     <string name="payment_method">Payment Method</string>
     <string name="cash_on_delivery">Cash on Delivery</string>
     <string name="paytm_options">Paytm (Wallet/Card/Net Banking)</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+    <string name="my_orders">My Orders</string>
+    <string name="address_book">Address Book</string>
+    <string name="wallet">Wallet</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="faq">FAQ</string>
+    <string name="donate">Donate</string>
+    <string name="about_us">About Us</string>
 </resources>

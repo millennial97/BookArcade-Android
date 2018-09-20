@@ -3,10 +3,22 @@ package in.bookarcade.app;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import in.bookarcade.app.utils.UniversalImageLoader;
 
 
 /**
@@ -18,14 +30,12 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+    private CardView menu_orders, menu_addresses, menu_wallet, menu_wishlist, menu_about, menu_donate, menu_faq;
+    private TextView tv_display_name, tv_email, tv_address;
+    private CircleImageView img_user;
 
     private OnFragmentInteractionListener mListener;
 
@@ -40,20 +50,52 @@ public class ProfileFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance() {
-        ProfileFragment fragment = new ProfileFragment();
-        return fragment;
+        return new ProfileFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        tv_address = view.findViewById(R.id.tv_address);
+        tv_display_name = view.findViewById(R.id.tv_display_name);
+        tv_email = view.findViewById(R.id.tv_email);
+
+        menu_orders = view.findViewById(R.id.menu1);
+        menu_addresses = view.findViewById(R.id.menu2);
+        menu_wallet = view.findViewById(R.id.menu3);
+        menu_wishlist = view.findViewById(R.id.menu4);
+        menu_about = view.findViewById(R.id.menu5);
+        menu_faq = view.findViewById(R.id.menu6);
+        menu_donate = view.findViewById(R.id.menu7);
+
+        img_user = view.findViewById(R.id.img_user);
+
+        if (Objects.requireNonNull(mUser.getProviders()).contains("facebook.com")) {
+            UniversalImageLoader.setImage(String.valueOf(mUser.getPhotoUrl())+"?height=200", img_user, null);
+        } else {
+            TextDrawable textDrawable = TextDrawable.builder()
+                    .beginConfig().
+                            textColor(getResources().getColor(R.color.colorPrimary)).
+                            withBorder(4)
+                    .endConfig().buildRound(String.valueOf(Objects.requireNonNull(mUser.getDisplayName()).charAt(0)),
+                            getResources().getColor(R.color.colorLight));
+            img_user.setBackground(textDrawable);
+        }
+
+        tv_display_name.setText(mUser.getDisplayName());
+        tv_email.setText(mUser.getEmail());
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
