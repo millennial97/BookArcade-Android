@@ -22,10 +22,20 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_address1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_display_name"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/address"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_address2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_address1"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="@string/address"
@@ -35,17 +45,26 @@
             android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_address"
-            android:layout_marginBottom="2dp"
+            android:layout_below="@id/tv_address2"
             android:layout_marginStart="8dp"
             android:text="@string/phone_number"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_landmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_phone"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/landmark"
             android:textSize="16sp" />
 
         <View
             android:id="@+id/view"
             android:layout_width="1dp"
             android:layout_height="30dp"
-            android:layout_below="@id/tv_phone"
+            android:layout_below="@id/tv_landmark"
             android:layout_centerHorizontal="true"
             android:background="@color/colorAccent" />
 
@@ -53,23 +72,23 @@
             android:id="@+id/btn_change"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_below="@id/tv_phone"
+            android:layout_below="@id/tv_landmark"
             android:layout_toStartOf="@id/view"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorLight"
             android:text="@string/change"
             android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/colorPrimary" />
 
         <Button
             android:id="@+id/btn_add"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_below="@id/tv_phone"
+            android:layout_below="@id/tv_landmark"
             android:layout_toEndOf="@id/view"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorLight"
             android:text="@string/add_new"
             android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/colorPrimary" />
 
     </RelativeLayout>
 

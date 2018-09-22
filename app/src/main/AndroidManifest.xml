@@ -86,8 +86,11 @@
         <activity
             android:name=".CartActivity"
             android:label="Cart" />
-        <activity android:name=".PurchaseActivity"
-            android:label="Buy"/>
+        <activity
+            android:name=".PurchaseActivity"
+            android:label="Buy" />
+        <activity android:name=".AddNewAddressActivity"
+            android:label="Add New Address"/>
     </application>
 
 </manifest>

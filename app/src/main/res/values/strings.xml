@@ -95,4 +95,15 @@
     <string name="about_us">About Us</string>
     <string name="order_details">Order Details</string>
     <string name="proceed">Proceed</string>
+    <string name="name">Name*</string>
+    <string name="address_line_1">Address Line 1*</string>
+    <string name="address_line_2">Address Line 2</string>
+    <string name="landmark">Landmark</string>
+    <string name="mobile_10_digit_number">Mobile (10 Digit Number)*</string>
+    <string name="pincode">Pincode*</string>
+    <string name="city">City</string>
+    <string name="bangalore">Bangalore</string>
+    <string name="state">State</string>
+    <string name="karnataka">Karnataka</string>
+    <string name="save_address">Save Address</string>
 </resources>
