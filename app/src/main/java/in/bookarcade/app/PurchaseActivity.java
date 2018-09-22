@@ -69,6 +69,7 @@ public class PurchaseActivity extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
 
         intent = getIntent();
+        actionBar.setTitle("Buy " + intent.getStringExtra("title"));
         cart_total = intent.getDoubleExtra("price", 0.0);
         mrp = intent.getDoubleExtra("mrp", 0.0);
     }
