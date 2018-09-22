@@ -355,7 +355,9 @@ public class HomeFragment extends Fragment {
                 tv_more1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(getContext(), SectionMoreActivity.class));
+                        Intent i = new Intent(getContext(), SectionMoreActivity.class);
+                        i.putExtra("title", tv_section1.getText().toString());
+                        startActivity(i);
                     }
                 });
             }

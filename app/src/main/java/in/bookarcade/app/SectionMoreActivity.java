@@ -1,5 +1,6 @@
 package in.bookarcade.app;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,7 +37,8 @@ public class SectionMoreActivity extends AppCompatActivity {
     //Android widgets
     private RecyclerView rv_books;
     private HomeBookAdapter bookAdapter;
-
+    private Intent intent;
+    private ProgressBar progressBar;
 
     //External types
     private FirebaseAuth mAuth;
@@ -60,12 +64,16 @@ public class SectionMoreActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
+        intent = getIntent();
+        actionBar.setTitle(intent.getStringExtra("title"));
+
         books = new ArrayList<>();
         bookAdapter = new HomeBookAdapter(this);
     }
 
     private void initViews() {
         rv_books = findViewById(R.id.rv_books);
+        progressBar = findViewById(R.id.progress_bar);
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
@@ -89,8 +97,10 @@ public class SectionMoreActivity extends AppCompatActivity {
                     }
 
                 }
+                progressBar.setVisibility(View.GONE);
                 bookAdapter.setBooks(books);
                 rv_books.setAdapter(bookAdapter);
+                rv_books.setVisibility(View.VISIBLE);
             }
         });
     }
