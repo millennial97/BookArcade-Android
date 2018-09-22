@@ -6,7 +6,7 @@
     android:scrollbars="none"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".HomeFragment">
+    tools:context=".main.HomeFragment">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"

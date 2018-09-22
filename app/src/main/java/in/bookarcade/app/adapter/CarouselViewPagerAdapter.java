@@ -53,7 +53,7 @@ public class CarouselViewPagerAdapter extends PagerAdapter {
 
         ImageView imageView = view.findViewById(R.id.imageView);
 
-        UniversalImageLoader.setImage(utils.getCarouselImageUrl(), imageView, null);
+        UniversalImageLoader.setImage(utils.getImageUrl(), imageView, null);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

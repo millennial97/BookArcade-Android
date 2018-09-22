@@ -53,7 +53,7 @@
             android:name=".auth.SignupActivity"
             android:label="Sign Up" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".search.SearchActivity"
             android:label="Search BookArcade"
             android:launchMode="singleTop">
             <intent-filter>

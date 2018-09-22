@@ -35,6 +35,9 @@ import java.util.Objects;
 
 import in.bookarcade.app.adapter.BottomNavigationViewPagerAdapter;
 import in.bookarcade.app.auth.LoginActivity;
+import in.bookarcade.app.main.CategoriesFragment;
+import in.bookarcade.app.main.HomeFragment;
+import in.bookarcade.app.main.ProfileFragment;
 import in.bookarcade.app.utils.UniversalImageLoader;
 
 public class HomeActivity extends AppCompatActivity
