@@ -43,10 +43,32 @@
             android:background="@color/colorLight" />
 
         <TextView
-            android:id="@+id/tv_head_cart_total"
+            android:id="@+id/tv_head_mrp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/view1"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/m_r_p"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_mrp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
+            android:layout_below="@id/view1"
+            android:layout_marginTop="4dp"
+            android:text="@string/mrp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_head_cart_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_head_discount"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:text="@string/cart_total"
@@ -58,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="8dp"
-            android:layout_below="@id/view1"
+            android:layout_below="@id/tv_head_discount"
             android:layout_marginTop="4dp"
             android:text="@string/mrp"
             android:textColor="@android:color/black"
@@ -90,7 +112,7 @@
             android:id="@+id/tv_head_discount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_head_shipping"
+            android:layout_below="@id/tv_head_mrp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:text="@string/discount"
@@ -102,7 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="8dp"
-            android:layout_below="@id/tv_head_shipping"
+            android:layout_below="@id/tv_head_mrp"
             android:layout_marginTop="4dp"
             android:text="@string/mrp"
             android:textColor="@android:color/black"
@@ -112,7 +134,7 @@
             android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/tv_head_discount"
+            android:layout_below="@id/tv_head_shipping"
             android:layout_marginBottom="2dp"
             android:layout_marginEnd="2dp"
             android:layout_marginStart="2dp"

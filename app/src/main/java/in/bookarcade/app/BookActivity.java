@@ -250,7 +250,7 @@ public class BookActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
 
-                    Map<String, Object> book = task.getResult().getData();
+                    final Map<String, Object> book = task.getResult().getData();
                     if (book != null) {
                         UniversalImageLoader.setImage(book.get("m_image_url").toString(), img_book, null);
 
@@ -283,6 +283,12 @@ public class BookActivity extends AppCompatActivity {
                             public void onClick(View view) {
                                 Intent i = new Intent(BookActivity.this, PurchaseActivity.class);
                                 i.putExtra("book_id", book_id);
+                                i.putExtra("title", title);
+                                i.putExtra("publisher", book.get("publisher").toString());
+                                i.putExtra("price", price);
+                                i.putExtra("mrp", mrp);
+                                i.putExtra("author", book.get("author").toString());
+                                i.putExtra("image_url", book.get("m_image_url").toString());
                                 startActivity(i);
                             }
                         });
