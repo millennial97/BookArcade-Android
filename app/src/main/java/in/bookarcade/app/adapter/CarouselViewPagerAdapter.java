@@ -1,7 +1,10 @@
 package in.bookarcade.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -14,6 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
+import in.bookarcade.app.BookActivity;
 import in.bookarcade.app.R;
 import in.bookarcade.app.model.CarouselItem;
 import in.bookarcade.app.utils.UniversalImageLoader;
@@ -49,7 +53,7 @@ public class CarouselViewPagerAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.card_carousel_item, null);
 
-        CarouselItem utils = carouselImg.get(position);
+        final CarouselItem utils = carouselImg.get(position);
 
         ImageView imageView = view.findViewById(R.id.imageView);
 
@@ -58,9 +62,28 @@ public class CarouselViewPagerAdapter extends PagerAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "Image " + position + " clicked", Toast.LENGTH_SHORT).show();
+                if (utils.getItemType().equals("LINK")) {
+                    CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+                            .addDefaultShareMenuItem()
+                            .setToolbarColor(mContext.getResources()
+                                    .getColor(R.color.colorPrimary))
+                            .setShowTitle(true)
+                            .build();
+
+                    customTabsIntent.launchUrl(mContext, Uri.parse(utils.getPath()));
+                } else if (utils.getItemType().equals("BOOK")) {
+                    Intent i = new Intent(mContext, BookActivity.class);
+                    i.putExtra("title", utils.getTitle());
+                    i.putExtra("book_id", utils.getBookId());
+                    i.putExtra("image_url", utils.getMImageUrl());
+                    i.putExtra("author", utils.getAuthor());
+                    i.putExtra("mrp", utils.getMrp());
+                    i.putExtra("price", utils.getPrice());
+                    mContext.startActivity(i);
+                }
             }
         });
+
 
         ViewPager viewPager = (ViewPager) container;
         viewPager.addView(view, 0);
