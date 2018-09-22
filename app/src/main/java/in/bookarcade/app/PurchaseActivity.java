@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,7 @@ public class PurchaseActivity extends AppCompatActivity {
     private static final int ADD_ADDRESS = 1;
     private static final int CHANGE_ADDRESS = 2;
     private double total, cart_total, shipping, discount, mrp;
+    private String name, address1, address2, city, pincode, landmark, phone, state = "Karnataka";
 
     //Android widgets
     private Button btn_add, btn_change, btn_proceed;
@@ -40,6 +42,7 @@ public class PurchaseActivity extends AppCompatActivity {
     private TextView tv_book_title, tv_book_author, tv_book_publisher;
     private ImageView img_book;
     private Intent intent;
+    private CardView addressLayout;
 
     //External types
     private FirebaseAuth mAuth;
@@ -76,6 +79,9 @@ public class PurchaseActivity extends AppCompatActivity {
         btn_add = findViewById(R.id.btn_add);
         btn_change = findViewById(R.id.btn_change);
         btn_proceed = findViewById(R.id.btn_proceed);
+
+        //Layouts
+        addressLayout = findViewById(R.id.layout_address);
 
         //TextViews
         tv_eta = findViewById(R.id.tv_eta);
@@ -119,23 +125,74 @@ public class PurchaseActivity extends AppCompatActivity {
         if (requestCode == ADD_ADDRESS) {
             if (resultCode == RESULT_OK) {
 
-            }
-        } else if (requestCode == CHANGE_ADDRESS) {
-            if (resultCode == RESULT_OK) {
-                tv_name.setText(data.getStringExtra("name"));
-                tv_address1.setText(data.getStringExtra("address1"));
+                tv_name.setVisibility(View.VISIBLE);
+                tv_address2.setVisibility(View.VISIBLE);
+                tv_address1.setVisibility(View.VISIBLE);
+                tv_city.setVisibility(View.VISIBLE);
+                tv_phone.setVisibility(View.VISIBLE);
+                tv_pincode.setVisibility(View.VISIBLE);
+                tv_landmark.setVisibility(View.VISIBLE);
+                btn_change.setVisibility(View.VISIBLE);
 
-                if (!TextUtils.isEmpty(data.getStringExtra("address2")))
-                    tv_address2.setText(data.getStringExtra("address2"));
+                name = data.getStringExtra("name");
+                address1 = data.getStringExtra("address1");
+                address2 = data.getStringExtra("address2");
+                city = data.getStringExtra("city");
+                phone = data.getStringExtra("phone");
+                pincode = data.getStringExtra("pincode");
+                landmark = data.getStringExtra("landmark");
+
+                tv_name.setText(name);
+                tv_address1.setText(address1);
+
+                if (!TextUtils.isEmpty(address2))
+                    tv_address2.setText(address2);
                 else
                     tv_address2.setVisibility(View.GONE);
 
-                tv_city.setText(data.getStringExtra("city"));
-                tv_pincode.setText(data.getStringExtra("pincode"));
-                tv_phone.setText("+91 " + data.getStringExtra("phone"));
+                tv_city.setText(city);
+                tv_pincode.setText(pincode);
+                tv_phone.setText("+91 " + phone);
 
-                if (!TextUtils.isEmpty(data.getStringExtra("landmark")))
-                    tv_landmark.setText("Landmark: " + data.getStringExtra("landmark"));
+                if (!TextUtils.isEmpty(landmark))
+                    tv_landmark.setText("Landmark: " + landmark);
+                else
+                    tv_landmark.setVisibility(View.GONE);
+            }
+        } else if (requestCode == CHANGE_ADDRESS) {
+            if (resultCode == RESULT_OK) {
+
+                tv_name.setVisibility(View.VISIBLE);
+                tv_address2.setVisibility(View.VISIBLE);
+                tv_address1.setVisibility(View.VISIBLE);
+                tv_city.setVisibility(View.VISIBLE);
+                tv_phone.setVisibility(View.VISIBLE);
+                tv_pincode.setVisibility(View.VISIBLE);
+                tv_landmark.setVisibility(View.VISIBLE);
+                btn_change.setVisibility(View.VISIBLE);
+
+                name = data.getStringExtra("name");
+                address1 = data.getStringExtra("address1");
+                address2 = data.getStringExtra("address2");
+                city = data.getStringExtra("city");
+                phone = data.getStringExtra("phone");
+                pincode = data.getStringExtra("pincode");
+                landmark = data.getStringExtra("landmark");
+
+                tv_name.setText(name);
+                tv_address1.setText(address1);
+
+                if (!TextUtils.isEmpty(address2))
+                    tv_address2.setText(address2);
+                else
+                    tv_address2.setVisibility(View.GONE);
+
+                tv_city.setText(city);
+                tv_pincode.setText(pincode);
+                tv_phone.setText("+91 " + phone);
+
+                if (!TextUtils.isEmpty(landmark))
+                    tv_landmark.setText("Landmark: " + landmark);
                 else
                     tv_landmark.setVisibility(View.GONE);
             }
@@ -169,22 +226,41 @@ public class PurchaseActivity extends AppCompatActivity {
                 List<DocumentSnapshot> documents = task.getResult().getDocuments();
                 if (documents.size() > 0) {
                     Map<String, Object> address = documents.get(0).getData();
-                    tv_name.setText(address.get("name").toString());
-                    tv_address1.setText(address.get("address1").toString());
+                    if (address != null) {
+                        name = address.get("name").toString();
+                        address1 = address.get("address1").toString();
+                        address2 = address.get("address2").toString();
+                        city = address.get("city").toString();
+                        pincode = address.get("pincode").toString();
+                        phone = address.get("phone").toString();
+                        landmark = address.get("landmark").toString();
+                    }
 
-                    if (!TextUtils.isEmpty(address.get("address2").toString()))
-                        tv_address2.setText(address.get("address2").toString());
+                    tv_name.setText(name);
+                    tv_address1.setText(address1);
+
+                    if (!TextUtils.isEmpty(address2))
+                        tv_address2.setText(address2);
                     else
                         tv_address2.setVisibility(View.GONE);
 
-                    tv_city.setText(address.get("city").toString());
-                    tv_pincode.setText(address.get("pincode").toString());
-                    tv_phone.setText("+91 " + address.get("phone").toString());
+                    tv_city.setText(city);
+                    tv_pincode.setText(pincode);
+                    tv_phone.setText("+91 " + phone);
 
-                    if (!TextUtils.isEmpty(address.get("landmark").toString()))
-                        tv_landmark.setText("Landmark: " + address.get("landmark").toString());
+                    if (!TextUtils.isEmpty(landmark))
+                        tv_landmark.setText("Landmark: " + landmark);
                     else
                         tv_landmark.setVisibility(View.GONE);
+                } else {
+                    btn_change.setVisibility(View.INVISIBLE);
+                    tv_name.setVisibility(View.INVISIBLE);
+                    tv_city.setVisibility(View.INVISIBLE);
+                    tv_pincode.setVisibility(View.INVISIBLE);
+                    tv_landmark.setVisibility(View.INVISIBLE);
+                    tv_phone.setVisibility(View.INVISIBLE);
+                    tv_address1.setVisibility(View.INVISIBLE);
+                    tv_address2.setText("Click below to add a new address.");
                 }
 
             }
