@@ -92,8 +92,10 @@
         <activity
             android:name=".AddNewAddressActivity"
             android:label="Add New Address" />
-        <activity android:name=".SelectAddressActivity"
-            android:label="Select Shipping Address"/>
+        <activity
+            android:name=".SelectAddressActivity"
+            android:label="Select Shipping Address" />
+        <activity android:name=".SectionMoreActivity"></activity>
     </application>
 
 </manifest>

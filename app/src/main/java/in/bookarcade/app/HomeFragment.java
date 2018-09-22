@@ -1,6 +1,7 @@
 package in.bookarcade.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -220,6 +221,8 @@ public class HomeFragment extends Fragment {
         img_spotlight = view.findViewById(R.id.img_spotlight_book);
 
         //Listeners
+
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -349,6 +352,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 tv_section1.setText(Objects.requireNonNull(task.getResult().getData()).get("section_name").toString());
+                tv_more1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(getContext(), SectionMoreActivity.class));
+                    }
+                });
             }
         });
 

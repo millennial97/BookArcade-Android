@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,6 +45,8 @@ public class PurchaseActivity extends AppCompatActivity {
     private ImageView img_book;
     private Intent intent;
     private CardView addressLayout;
+    private ProgressBar progressBar;
+    private RelativeLayout mainLayout;
 
     //External types
     private FirebaseAuth mAuth;
@@ -76,6 +80,8 @@ public class PurchaseActivity extends AppCompatActivity {
 
     private void initViews() {
 
+        progressBar = findViewById(R.id.progress_bar);
+
         //Buttons
         btn_add = findViewById(R.id.btn_add);
         btn_change = findViewById(R.id.btn_change);
@@ -83,6 +89,7 @@ public class PurchaseActivity extends AppCompatActivity {
 
         //Layouts
         addressLayout = findViewById(R.id.layout_address);
+        mainLayout = findViewById(R.id.mainLayout);
 
         //TextViews
         tv_eta = findViewById(R.id.tv_eta);
@@ -264,6 +271,8 @@ public class PurchaseActivity extends AppCompatActivity {
                     tv_address2.setText("Click below to add a new address.");
                 }
 
+                mainLayout.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
