@@ -109,4 +109,9 @@
     <string name="ph_">Ph:</string>
     <string name="landmark_">Landmark:</string>
     <string name="m_r_p">M.R.P</string>
+    <string name="student_scheme">Student Scheme</string>
+    <string name="donate_help_us">Donate/Help Us</string>
+    <string name="suggest_a_book">Suggest a Book</string>
+    <string name="options">Options</string>
+    <string name="share">Share</string>
 </resources>

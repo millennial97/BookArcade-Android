@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -200,7 +201,6 @@ public class HomeFragment extends Fragment {
         card_featured = view.findViewById(R.id.card_featured);
 
 
-
         img_footer = view.findViewById(R.id.img_footer);
         img_featured = view.findViewById(R.id.img_featured_book);
         img_spotlight = view.findViewById(R.id.img_spotlight_book);
@@ -217,10 +217,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 for (int i = 0; i < dotsCount; i++) {
-                    dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.dot_inactive));
+                    dots[i].setImageDrawable(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.dot_inactive));
                 }
 
-                dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.dot_active));
+                dots[position].setImageDrawable(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.dot_active));
             }
 
             @Override
@@ -231,7 +231,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void mainInit() {
-
 /*
         db.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -267,8 +266,29 @@ public class HomeFragment extends Fragment {
                     db.collection("master_books").document(book.get("book_sku").toString()).set(master_book);
                 }
             }
+        });*/
+
+      /*  db.collection("master_books").document("BAAZ-9352644123").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Map<String, Object> master_book = task.getResult().getData();
+                Map<String, Object> book = new HashMap<>();
+                book.put("author", master_book.get("author").toString());
+                book.put("title", master_book.get("title").toString());
+                book.put("m_image_url", master_book.get("m_image_url").toString());
+                book.put("book_id", master_book.get("book_sku").toString());
+                book.put("mrp", Double.parseDouble(master_book.get("mrp").toString()));
+                book.put("price", Double.parseDouble(master_book.get("price").toString()));
+                db.collection("android_v1_0_0").document("section3").collection("books").document(master_book.get("book_sku").toString()).set(book);
+            }
         });
-        */
+
+        Map<String, Object> author = new HashMap<>();
+        author.put("name", "Anuja Chauhan");
+        author.put("image_url", "https://images.indianexpress.com/2015/05/anuja-main.jpg");
+        author.put("about", "Anuja Chauhan is an Indian author, advertiser and screenwriter. She worked in the advertising agency, JWT India, for over 17 years, eventually becoming vice-president and executive creative director, before resigning in 2010 to pursue a full-time literary career.");
+        db.collection("master_authors").document("Anuja Chauhan").set(author);*/
+
 
         db.collection("android_v1_0_0").document("carousel_home").collection("items").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -363,6 +383,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //Section 1
         db.collection("android_v1_0_0").document("section1").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -371,13 +392,13 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         Intent i = new Intent(getContext(), SectionMoreActivity.class);
+                        i.putExtra("section_id", "section1");
                         i.putExtra("title", tv_section1.getText().toString());
                         startActivity(i);
                     }
                 });
             }
         });
-
         db.collection("android_v1_0_0").document("section1").collection("books").limit(10).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -393,6 +414,74 @@ public class HomeFragment extends Fragment {
                         }
                         bookAdapter.setBooks(books);
                         rv_books.setAdapter(bookAdapter);
+                    }
+                });
+
+        //Section 2
+        db.collection("android_v1_0_0").document("section2").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                tv_section2.setText(Objects.requireNonNull(task.getResult().getData()).get("section_name").toString());
+                tv_more2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(getContext(), SectionMoreActivity.class);
+                        i.putExtra("title", tv_section2.getText().toString());
+                        i.putExtra("section_id", "section2");
+                        startActivity(i);
+                    }
+                });
+            }
+        });
+        db.collection("android_v1_0_0").document("section2").collection("books").limit(10).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<DocumentSnapshot> documents = task.getResult().getDocuments();
+                        for (DocumentSnapshot document : documents) {
+                            Map<String, Object> book = document.getData();
+                            if (book != null) {
+                                books2.add(new HomeBook(book.get("title").toString(), book.get("book_id").toString(),
+                                        book.get("m_image_url").toString(), book.get("author").toString(), Double.parseDouble(book.get("mrp").toString()),
+                                        Double.parseDouble(book.get("price").toString())));
+                            }
+                        }
+                        bookAdapter2.setBooks(books2);
+                        rv_books2.setAdapter(bookAdapter2);
+                    }
+                });
+
+        //Section 3
+        db.collection("android_v1_0_0").document("section3").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                tv_section3.setText(Objects.requireNonNull(task.getResult().getData()).get("section_name").toString());
+                tv_more3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(getContext(), SectionMoreActivity.class);
+                        i.putExtra("title", tv_section3.getText().toString());
+                        i.putExtra("section_id", "section3");
+                        startActivity(i);
+                    }
+                });
+            }
+        });
+        db.collection("android_v1_0_0").document("section3").collection("books").limit(10).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<DocumentSnapshot> documents = task.getResult().getDocuments();
+                        for (DocumentSnapshot document : documents) {
+                            Map<String, Object> book = document.getData();
+                            if (book != null) {
+                                books3.add(new HomeBook(book.get("title").toString(), book.get("book_id").toString(),
+                                        book.get("m_image_url").toString(), book.get("author").toString(), Double.parseDouble(book.get("mrp").toString()),
+                                        Double.parseDouble(book.get("price").toString())));
+                            }
+                        }
+                        bookAdapter3.setBooks(books3);
+                        rv_books3.setAdapter(bookAdapter3);
                     }
                 });
 

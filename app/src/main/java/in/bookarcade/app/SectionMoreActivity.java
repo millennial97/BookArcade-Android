@@ -33,6 +33,7 @@ public class SectionMoreActivity extends AppCompatActivity {
 
     //Java built-in types
     private List<HomeBook> books;
+    private String section_id;
 
     //Android widgets
     private RecyclerView rv_books;
@@ -66,6 +67,7 @@ public class SectionMoreActivity extends AppCompatActivity {
 
         intent = getIntent();
         actionBar.setTitle(intent.getStringExtra("title"));
+        section_id = intent.getStringExtra("section_id");
 
         books = new ArrayList<>();
         bookAdapter = new HomeBookAdapter(this);
@@ -84,7 +86,7 @@ public class SectionMoreActivity extends AppCompatActivity {
     }
 
     private void mainInit() {
-        db.collection("android_v1_0_0").document("section1").collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("android_v1_0_0").document(section_id).collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 List<DocumentSnapshot> documents = task.getResult().getDocuments();

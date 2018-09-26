@@ -158,23 +158,33 @@ public class AddNewAddressActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(name)) {
             til_name.setError("Name cannot be empty.");
             et_name.requestFocus();
+            progressBar.setVisibility(View.INVISIBLE);
+            btn_save.setVisibility(View.VISIBLE);
             return false;
         } else if (TextUtils.isEmpty(address1)) {
             til_address1.setError("Address Line 1 is required.");
             et_address1.requestFocus();
+            progressBar.setVisibility(View.INVISIBLE);
+            btn_save.setVisibility(View.VISIBLE);
             return false;
         } else if (TextUtils.isEmpty(phone)) {
             til_phone.setError("Mobile number is required.");
             et_phone.requestFocus();
+            progressBar.setVisibility(View.INVISIBLE);
+            btn_save.setVisibility(View.VISIBLE);
             return false;
         } else if (TextUtils.isEmpty(pincode)) {
             til_pincode.setError("Pincode cannot be empty.");
             et_pincode.requestFocus();
+            progressBar.setVisibility(View.INVISIBLE);
+            btn_save.setVisibility(View.VISIBLE);
             return false;
         }
 
         if (phone.length() != 10) {
             til_phone.setError("Mobile number should have 10 digits.");
+            progressBar.setVisibility(View.INVISIBLE);
+            btn_save.setVisibility(View.VISIBLE);
             return false;
         }
 

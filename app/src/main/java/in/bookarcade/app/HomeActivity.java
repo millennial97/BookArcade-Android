@@ -168,7 +168,7 @@ public class HomeActivity extends AppCompatActivity
         tv_email.setText(mUser.getEmail());
 
         if (Objects.requireNonNull(mUser.getProviders()).contains("facebook.com")) {
-            UniversalImageLoader.setImage(String.valueOf(mUser.getPhotoUrl())+"?height=200", img_user, null);
+            UniversalImageLoader.setImage(String.valueOf(mUser.getPhotoUrl()) + "?height=200", img_user, null);
         } else {
             TextDrawable textDrawable = TextDrawable.builder()
                     .beginConfig().
@@ -240,13 +240,11 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_student) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_suggest) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_donate) {
 
         } else if (id == R.id.nav_share) {
 

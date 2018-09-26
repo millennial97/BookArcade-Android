@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:fullBackupContent="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -95,7 +96,9 @@
         <activity
             android:name=".SelectAddressActivity"
             android:label="Select Shipping Address" />
-        <activity android:name=".SectionMoreActivity"></activity>
+        <activity android:name=".SectionMoreActivity" />
+        <activity android:name=".StudentSchemeActivity"
+            android:label="Student Scheme"/>
     </application>
 
 </manifest>

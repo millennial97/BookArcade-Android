@@ -140,23 +140,6 @@ public class BookActivity extends AppCompatActivity {
 
     private void mainInit() {
 
-        /*
-        Map<String, Object> book = new HashMap<>();
-        book.put("author", "Ravish Kumar");
-        book.put("title", "The Free Voice: On Democracy, Culture and the Nation");
-        book.put("s_image_url", "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1520184445i/38929045._UY200_.jpg");
-        book.put("book_id", "THE_FREE_VOICE-9387164780");
-        book.put("mrp", 499);
-        book.put("price", 335);
-        db.collection("android_v1_0_0").document("section1").collection("books").document("THE_FREE_VOICE-9387164780").set(book);
-
-        Map<String, Object> author = new HashMap<>();
-        author.put("name", "Ravish Kumar");
-        author.put("image_url", "https://i0.wp.com/news.fawnconsulting.in/wp-content/uploads/2018/01/Ravish-kumar.jpg?fit=576%2C432");
-        author.put("about", "Ravish Kumar, writer, journalist and social commentator, is Senior Executive Editor with NDTV India. He is also the author of Ishq Mein Shahar Hona, Dekhte Rahiye and Ravishpanti.");
-        db.collection("master_authors").document("Ravish Kumar").set(author);
-        */
-
         //Initialize cart
         db.collection("users").document(Objects.requireNonNull(mUser.getEmail())).collection("cart").document(intent.getStringExtra("book_id"))
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
