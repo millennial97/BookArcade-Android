@@ -357,8 +357,6 @@ public class HomeFragment extends Fragment {
                     tv_featured_mrp.setText(getString(R.string.rupee_symbol) + String.valueOf(Double.parseDouble(featuredBook.get("mrp").toString())));
                     tv_featured_mrp.setPaintFlags(tv_featured_mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     tv_featured_price.setText(getString(R.string.rupee_symbol) + String.valueOf(Double.parseDouble(featuredBook.get("price").toString())));
-
-
                 }
             }
         });
