@@ -2,11 +2,11 @@ package in.bookarcade.app;
 
 import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
@@ -280,7 +280,15 @@ public class BookActivity extends AppCompatActivity {
                         btn_rent.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
+                                Intent i = new Intent(BookActivity.this, RentActivity.class);
+                                i.putExtra("book_id", book_id);
+                                i.putExtra("title", title);
+                                i.putExtra("publisher", book.get("publisher").toString());
+                                i.putExtra("price", price);
+                                i.putExtra("mrp", mrp);
+                                i.putExtra("author", book.get("author").toString());
+                                i.putExtra("image_url", book.get("m_image_url").toString());
+                                startActivity(i);
                             }
                         });
 //                        btn_rent.setText("Rent - " + getString(R.string.rupee_symbol) + (Math.round(Double.parseDouble(book.get("price").toString())) * 0.4 * 100.0/100.0));
@@ -289,7 +297,7 @@ public class BookActivity extends AppCompatActivity {
                         mainLayout.setVisibility(View.VISIBLE);
                     }
                 } else {
-                    Toast.makeText(BookActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookActivity.this, Objects.requireNonNull(task.getException()).getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

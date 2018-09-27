@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    tools:context=".PurchaseActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        tools:context=".PurchaseActivity">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <RelativeLayout
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/tv_head_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/select_rental_duration"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/s_duration"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/tv_head_duration"
+                android:layout_margin="8dp"
+                android:alpha="0.8"
+                android:background="@color/colorAccent"
+                android:entries="@array/rent_durations"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tv_head_summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/s_duration"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/order_summary"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <include
+                android:id="@+id/layout_summary"
+                layout="@layout/layout_rent_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_head_summary"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:id="@+id/tv_head_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_summary"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/shipping_address"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <include
+                android:id="@+id/layout_address"
+                layout="@layout/layout_purchase_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_head_address"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:id="@+id/tv_head_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_address"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/payment_method"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <include
+                android:id="@+id/layout_payment"
+                layout="@layout/layout_purchase_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_head_payment"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:id="@+id/tv_head_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_payment"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/order_details"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <include
+                android:id="@+id/layout_details"
+                layout="@layout/layout_purchase_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_head_details"
+                android:layout_marginTop="2dp" />
+
+            <Button
+                android:id="@+id/btn_proceed"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/layout_details"
+                android:background="@color/colorAccent"
+                android:text="@string/proceed" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</ScrollView>

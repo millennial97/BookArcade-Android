@@ -100,7 +100,11 @@
         <activity
             android:name=".StudentSchemeActivity"
             android:label="Student Scheme" />
-        <activity android:name=".PurchaseOrderDetailsActivity"></activity>
+        <activity android:name=".PurchaseOrderDetailsActivity" />
+        <activity
+            android:name=".RentActivity"
+            android:label="Rent" />
+        <activity android:name=".RentOrderDetailsActivity"></activity>
     </application>
 
 </manifest>
