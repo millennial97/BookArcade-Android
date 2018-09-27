@@ -132,6 +132,16 @@
     <string name="rent_duration">Rent Duration</string>
     <string name="delivery_date">Delivery Date</string>
 
+    <string name="student_apply">Click below to apply for student membership in BookArcade and avail special offers, discounts and buy-back offers.</string>
+    <string name="apply">Apply</string>
+    <string name="course">Course</string>
+    <string name="reg_number">Reg Number</string>
+    <string name="college_name">College Name</string>
+    <string name="membership">Membership</string>
+    <string name="redeem_code">Redeem Code</string>
+    <string name="feedback">Feedback</string>
+    <string name="refer_student">Refer a Student</string>
+
     <string-array name="rent_durations">
         <item>1 Month (30 days)</item>
         <item>2 Months (60 days)</item>

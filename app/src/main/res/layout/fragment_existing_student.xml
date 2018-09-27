@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".main.ProfileFragment">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_user"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/nav_header_desc"
+            app:civ_border_color="@color/colorLight"
+            app:civ_border_width="1dp"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/tv_display_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/img_user"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@id/img_user"
+            android:drawableStart="@drawable/ic_user"
+            android:drawablePadding="4dp"
+            android:drawableTint="@color/colorPrimary"
+            android:text="@string/display_name"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_reg_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_display_name"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@id/img_user"
+            android:drawableStart="@drawable/ic_idcard"
+            android:drawablePadding="4dp"
+            android:drawableTint="@color/colorPrimary"
+            android:text="@string/reg_number"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_course"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_reg_number"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@id/img_user"
+            android:drawableStart="@drawable/ic_student"
+            android:drawablePadding="4dp"
+            android:drawableTint="@color/colorPrimary"
+            android:text="@string/course"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_college"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_user"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="4dp"
+            android:layout_marginEnd="16dp"
+            android:drawableStart="@drawable/ic_school"
+            android:drawableTint="@color/colorPrimary"
+            android:text="@string/college_name"
+            android:textAlignment="center"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_college"
+            android:layout_marginStart="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:drawableStart="@drawable/ic_card"
+            android:drawableTint="@color/colorPrimary"
+            android:text="@string/membership"
+            android:textAlignment="center"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_status"
+            android:background="@color/colorPrimary" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/menu1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view">
+
+            <TextView
+                android:id="@+id/tv_menu_redeem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:drawableStart="@drawable/ic_coupon"
+                android:drawablePadding="12dp"
+                android:drawableTint="@color/colorPrimary"
+                android:text="@string/redeem_code"
+                android:textSize="18sp" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/menu2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/menu1"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                android:id="@+id/tv_menu_suggest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:drawableStart="@drawable/ic_suggest"
+                android:drawablePadding="12dp"
+                android:drawableTint="@color/colorPrimary"
+                android:text="@string/suggest_a_book"
+                android:textSize="18sp" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/menu3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/menu2"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                android:id="@+id/tv_menu_feedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:drawableStart="@drawable/ic_feedback"
+                android:drawablePadding="12dp"
+                android:drawableTint="@color/colorPrimary"
+                android:text="@string/feedback"
+                android:textSize="18sp" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/menu4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/menu3"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                android:id="@+id/tv_menu_refer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:drawableStart="@drawable/ic_forward"
+                android:drawablePadding="12dp"
+                android:drawableTint="@color/colorPrimary"
+                android:text="@string/refer_student"
+                android:textSize="18sp" />
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+</ScrollView>
