@@ -5,6 +5,63 @@
     android:layout_height="match_parent"
     tools:context=".wallet.WalletActivity">
 
+    <FrameLayout
+        android:id="@+id/wallet_header"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/colorPrimary">
 
+        <TextView
+            android:id="@+id/tv_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="\u20B9 120"
+            android:textColor="@android:color/white"
+            android:textSize="50dp" />
+
+    </FrameLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/menu1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wallet_header">
+
+        <TextView
+            android:id="@+id/tv_menu_topup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:drawableStart="@drawable/ic_dollar"
+            android:drawablePadding="12dp"
+            android:drawableTint="@color/colorPrimary"
+            android:text="@string/top_up_recharge"
+            android:textSize="18sp" />
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/menu2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menu1">
+
+        <TextView
+            android:id="@+id/tv_menu_redeem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:drawableStart="@drawable/ic_coupon"
+            android:drawablePadding="12dp"
+            android:drawableTint="@color/colorPrimary"
+            android:text="@string/redeem_code"
+            android:textSize="18sp" />
+
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>
