@@ -133,6 +133,7 @@
     <string name="delivery_date">Delivery Date</string>
 
     <string name="student_apply">Click below to apply for student membership in BookArcade and avail special offers, discounts and buy-back offers.</string>
+    <string name="student_registered">We have received your application. Thank you for registering. You will soon be updated.</string>
     <string name="apply">Apply</string>
     <string name="course">Course</string>
     <string name="reg_number">Reg Number</string>
