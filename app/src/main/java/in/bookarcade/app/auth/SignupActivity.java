@@ -3,10 +3,10 @@ package in.bookarcade.app.auth;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -32,7 +31,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-import in.bookarcade.app.HomeActivity;
 import in.bookarcade.app.R;
 
 public class SignupActivity extends AppCompatActivity {
@@ -132,7 +130,7 @@ public class SignupActivity extends AppCompatActivity {
                                                     newUser.put("uid", mUser.getUid());
                                                     newUser.put("dob", "NA");
                                                     newUser.put("cart", "NA");
-                                                    newUser.put("wallet", "NA");
+                                                    newUser.put("wallet", 0.0D);
                                                     newUser.put("wishlist", "NA");
                                                     newUser.put("email", email);
                                                     newUser.put("first_name", first_name);
@@ -230,7 +228,7 @@ public class SignupActivity extends AppCompatActivity {
                                             Map<String, Object> newUser = new HashMap<>();
                                             newUser.put("dob", "NA");
                                             newUser.put("cart", "NA");
-                                            newUser.put("wallet", "NA");
+                                            newUser.put("wallet", 0.0D);
                                             newUser.put("wishlist", "NA");
                                             newUser.put("email", email);
                                             newUser.put("first_name", first_name);

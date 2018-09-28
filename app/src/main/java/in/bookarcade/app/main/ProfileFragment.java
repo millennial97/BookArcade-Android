@@ -1,6 +1,7 @@
 package in.bookarcade.app.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import java.util.Objects;
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.bookarcade.app.R;
 import in.bookarcade.app.utils.UniversalImageLoader;
+import in.bookarcade.app.wallet.WalletActivity;
 
 
 /**
@@ -47,6 +49,7 @@ public class ProfileFragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @return A new instance of fragment ProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -82,7 +85,7 @@ public class ProfileFragment extends Fragment {
         img_user = view.findViewById(R.id.img_user);
 
         if (Objects.requireNonNull(mUser.getProviders()).contains("facebook.com")) {
-            UniversalImageLoader.setImage(String.valueOf(mUser.getPhotoUrl())+"?height=200", img_user, null);
+            UniversalImageLoader.setImage(String.valueOf(mUser.getPhotoUrl()) + "?height=200", img_user, null);
         } else {
             TextDrawable textDrawable = TextDrawable.builder()
                     .beginConfig().
@@ -95,6 +98,13 @@ public class ProfileFragment extends Fragment {
 
         tv_display_name.setText(mUser.getDisplayName());
         tv_email.setText(mUser.getEmail());
+
+        menu_wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), WalletActivity.class));
+            }
+        });
 
         return view;
     }

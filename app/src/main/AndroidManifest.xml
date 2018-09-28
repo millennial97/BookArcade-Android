@@ -109,7 +109,8 @@
         <activity
             android:name=".RentOrderDetailsActivity"
             android:label="Order Details" />
-        <activity android:name=".wallet.WalletActivity"></activity>
+        <activity android:name=".wallet.WalletActivity"
+            android:label="Wallet"/>
     </application>
 
 </manifest>

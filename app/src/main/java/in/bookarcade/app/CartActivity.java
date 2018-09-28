@@ -132,11 +132,13 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
             final CartBook deletedBook = books.get(viewHolder.getAdapterPosition());
             final int deletedIndex = viewHolder.getAdapterPosition();
 
+            bookAdapter.removeItem(viewHolder.getAdapterPosition());
+
             Snackbar snackbar = Snackbar.make(mainLayout, itemName + " removed from cart!", Snackbar.LENGTH_LONG);
             snackbar.setAction("UNDO", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    bookAdapter.restoreItem(deletedBook, deletedIndex);
                 }
             });
             snackbar.setActionTextColor(getResources().getColor(R.color.colorAccent));

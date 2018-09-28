@@ -28,6 +28,7 @@ import java.util.Objects;
 import in.bookarcade.app.adapter.HomeBookAdapter;
 import in.bookarcade.app.model.HomeBook;
 import in.bookarcade.app.utils.ColumnQty;
+import in.bookarcade.app.utils.GridSpacingItemDecoration;
 
 public class SectionMoreActivity extends AppCompatActivity {
 
@@ -81,6 +82,8 @@ public class SectionMoreActivity extends AppCompatActivity {
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
         int n = (int) (dpWidth / 180);
 
+        int spacing_pixels = getResources().getDimensionPixelSize(R.dimen.grid_layout_margin);
+        rv_books.addItemDecoration(new GridSpacingItemDecoration(new ColumnQty(this, R.layout.card_home_book).calculateNoOfColumns(), spacing_pixels, true, 0));
         rv_books.setLayoutManager(new GridLayoutManager(this, new ColumnQty(this, R.layout.card_home_book).calculateNoOfColumns()));
         rv_books.setAdapter(bookAdapter);
     }

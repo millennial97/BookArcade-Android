@@ -15,10 +15,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import in.bookarcade.app.BookActivity;
 import in.bookarcade.app.R;
@@ -29,10 +35,16 @@ public class CartBookAdapter extends RecyclerView.Adapter<CartBookAdapter.ViewHo
 
     private Context context;
     private List<CartBook> books;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private FirebaseUser mUser;
 
     public CartBookAdapter(Context context) {
         this.context = context;
         this.books = new ArrayList<>();
+        this.mAuth = FirebaseAuth.getInstance();
+        this.db = FirebaseFirestore.getInstance();
+        this.mUser = mAuth.getCurrentUser();
     }
 
     public void setBooks(List<CartBook> books) {
@@ -112,5 +124,25 @@ public class CartBookAdapter extends RecyclerView.Adapter<CartBookAdapter.ViewHo
     @Override
     public int getItemCount() {
         return books.size();
+    }
+
+    public void removeItem(int position) {
+        db.collection("users").document(Objects.requireNonNull(mUser.getEmail())).collection("cart").document(books.get(position).getBookId()).delete();
+        books.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(CartBook cartBook, int position) {
+        Map<String, Object> book = new HashMap<>();
+        book.put("title", cartBook.getBookTitle());
+        book.put("book_id", cartBook.getBookId());
+        book.put("author", cartBook.getBookAuthor());
+        book.put("mrp", cartBook.getBookMrp());
+        book.put("price", cartBook.getBookPrice());
+        book.put("s_image_url", cartBook.getImageUrl());
+
+        db.collection("users").document(Objects.requireNonNull(mUser.getEmail())).collection("cart").document(cartBook.getBookId()).set(book);
+        books.add(position, cartBook);
+        notifyItemInserted(position);
     }
 }
