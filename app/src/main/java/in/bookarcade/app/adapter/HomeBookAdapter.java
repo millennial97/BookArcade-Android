@@ -115,7 +115,19 @@ public class HomeBookAdapter extends RecyclerView.Adapter<HomeBookAdapter.ViewHo
                                     db.collection("users").document(Objects.requireNonNull(mUser.getEmail())).collection("cart").document(clickedBook.getBookId()).set(cartBook);
                                     return true;
                                 case R.id.menu_wishlist:
+                                    Toast.makeText(context, "Added to Wishlist", Toast.LENGTH_SHORT).show();
 
+                                    HomeBook clickedBook2 = books.get(getAdapterPosition());
+
+                                    Map<String, Object> cartBook2 = new HashMap<>();
+                                    cartBook2.put("title", clickedBook2.getBookTitle());
+                                    cartBook2.put("book_id", clickedBook2.getBookId());
+                                    cartBook2.put("author", clickedBook2.getBookAuthor());
+                                    cartBook2.put("mrp", clickedBook2.getBookMrp());
+                                    cartBook2.put("price", clickedBook2.getBookPrice());
+                                    cartBook2.put("s_image_url", clickedBook2.getSImageUrl());
+
+                                    db.collection("users").document(Objects.requireNonNull(mUser.getEmail())).collection("wishlist").document(clickedBook2.getBookId()).set(cartBook2);
                                     return true;
 
                                 default:

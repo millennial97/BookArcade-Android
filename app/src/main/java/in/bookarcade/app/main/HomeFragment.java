@@ -275,6 +275,7 @@ public class HomeFragment extends Fragment {
                 book.put("author", master_book.get("author").toString());
                 book.put("title", master_book.get("title").toString());
                 book.put("m_image_url", master_book.get("m_image_url").toString());
+                book.put("s_image_url", master_book.get("s_image_url").toString());
                 book.put("book_id", master_book.get("book_sku").toString());
                 book.put("mrp", Double.parseDouble(master_book.get("mrp").toString()));
                 book.put("price", Double.parseDouble(master_book.get("price").toString()));
