@@ -1,7 +1,7 @@
 package in.bookarcade.app.wallet;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import in.bookarcade.app.R;
 
@@ -11,5 +11,7 @@ public class WalletActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
+
+
     }
 }

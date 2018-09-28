@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#14213d</color>
-    <color name="colorPrimaryDark">#111c33</color>
-    <color name="colorAccent">#fca311</color>
+    <color name="colorPrimary">#222222</color>
+    <!--<color name="colorPrimary">#14213d</color>-->
+    <color name="colorPrimaryDark">#222222</color>
+    <!--<color name="colorPrimaryDark">#111c33</color>-->
+    <color name="colorAccent">#ed393e</color>
+    <!--<color name="colorAccent">#fca311</color>-->
     <color name="colorLight">#e5e5e5</color>
+    <!--<color name="colorLight">#e5e5e5</color>-->
 
     <color name="colorDrawablesHome">#e5e5e5</color>
 </resources>

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
     android:fillViewport="true"
+    android:scrollbars="none"
     tools:context=".BookActivity">
 
     <RelativeLayout
@@ -23,7 +23,7 @@
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:context=".BookActivity">
 
 
@@ -37,9 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@id/layout_header"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:background="#c3c3c3" />
 
             <TextView
@@ -58,9 +58,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_below="@id/tv_mrp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_toEndOf="@id/view_middle"
                 android:background="@drawable/button_rounded"
                 android:backgroundTint="@color/colorPrimary"
@@ -81,9 +81,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_below="@id/tv_mrp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_toStartOf="@id/view_middle"
                 android:background="@drawable/button_rounded_border"
                 android:text="@string/purchase"
@@ -95,9 +95,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@id/btn_buy"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:background="#c3c3c3" />
 
             <View
@@ -112,8 +112,8 @@
                 android:layout_width="45dip"
                 android:layout_height="45dip"
                 android:layout_below="@id/view2"
-                android:layout_marginEnd="70dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="70dp"
                 android:layout_toStartOf="@id/view_middle2"
                 android:background="@drawable/ic_cart_plus"
                 android:contentDescription="@string/add_to_cart" />
@@ -134,9 +134,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@id/btn_cart"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:background="#c3c3c3" />
 
             <TextView
@@ -156,9 +156,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_head_about"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
                 android:maxLines="6" />
 
             <Button
@@ -186,9 +186,9 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_below="@id/tv_head_author"
-                android:layout_marginBottom="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp"
                 app:civ_border_color="@color/colorLight"
                 app:civ_border_width="2dp" />
 
@@ -197,10 +197,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_head_author"
-                android:layout_marginBottom="20dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="20dp"
                 android:layout_toEndOf="@id/img_author" />
 
         </RelativeLayout>
