@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,6 @@ import java.util.List;
 import in.bookarcade.app.BookActivity;
 import in.bookarcade.app.R;
 import in.bookarcade.app.model.CartBook;
-import in.bookarcade.app.model.HomeBook;
 import in.bookarcade.app.utils.UniversalImageLoader;
 
 public class CartBookAdapter extends RecyclerView.Adapter<CartBookAdapter.ViewHolder> {
@@ -41,7 +41,7 @@ public class CartBookAdapter extends RecyclerView.Adapter<CartBookAdapter.ViewHo
         ImageLoader.getInstance().init(new UniversalImageLoader(context).getDefaultConfig());
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_book_title;
         private TextView tv_book_author;
         private ImageView img_book;
@@ -49,6 +49,7 @@ public class CartBookAdapter extends RecyclerView.Adapter<CartBookAdapter.ViewHo
         private TextView tv_price;
         private ProgressBar progressBar;
         private ImageButton btn_options;
+        public RelativeLayout viewBackground, viewForeground;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -60,6 +61,8 @@ public class CartBookAdapter extends RecyclerView.Adapter<CartBookAdapter.ViewHo
             this.img_book = itemView.findViewById(R.id.img_book);
             this.progressBar = itemView.findViewById(R.id.progress_bar);
             this.btn_options = itemView.findViewById(R.id.btn_options);
+            this.viewBackground = itemView.findViewById(R.id.view_background);
+            this.viewForeground = itemView.findViewById(R.id.view_foreground);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

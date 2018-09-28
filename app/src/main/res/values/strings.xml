@@ -143,6 +143,7 @@
     <string name="refer_student">Refer a Student</string>
     <string name="top_up_recharge">Top Up/Recharge</string>
     <string name="add_to_wishlist">Add to Wishlist</string>
+    <string name="delete">Delete</string>
 
     <string-array name="rent_durations">
         <item>1 Month (30 days)</item>

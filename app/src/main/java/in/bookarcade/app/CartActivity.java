@@ -1,11 +1,13 @@
 package in.bookarcade.app;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -27,8 +29,9 @@ import java.util.Objects;
 
 import in.bookarcade.app.adapter.CartBookAdapter;
 import in.bookarcade.app.model.CartBook;
+import in.bookarcade.app.utils.CartItemTouchHelper;
 
-public class CartActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class CartActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, CartItemTouchHelper.CartItemTouchListener {
 
     //Java built-in types
     double cart_total = 0.0;
@@ -41,6 +44,7 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
     private ProgressBar progressBar;
     private RelativeLayout mainLayout;
     private SwipeRefreshLayout refreshLayout;
+    private ItemTouchHelper.SimpleCallback simpleCallback;
 
     //External types
     private FirebaseAuth mAuth;
@@ -76,6 +80,9 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
         mainLayout = findViewById(R.id.mainLayout);
         refreshLayout = findViewById(R.id.refreshLayout);
 
+        simpleCallback = new CartItemTouchHelper(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(rv_books);
+
         //TextViews
         tv_cart_empty = findViewById(R.id.tv_cart_empty);
         tv_head_total = findViewById(R.id.tv_head_total);
@@ -94,7 +101,7 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
                     tv_cart_empty.setVisibility(View.GONE);
                     for (DocumentSnapshot document : documents) {
                         Map<String, Object> book = document.getData();
-                        cart_total += Double.parseDouble(book.get("price").toString());
+                        cart_total += Double.parseDouble(Objects.requireNonNull(book).get("price").toString());
                         books.add(new CartBook(Objects.requireNonNull(book).get("title").toString(), document.getId(), book.get("s_image_url").toString(), book.get("author").toString(),
                                 Double.parseDouble(book.get("mrp").toString()), Double.parseDouble(book.get("price").toString())));
                     }
@@ -114,6 +121,27 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
 
             }
         });
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (viewHolder instanceof CartBookAdapter.ViewHolder) {
+            String itemName = books.get(viewHolder.getAdapterPosition()).getBookTitle();
+            String itemId = books.get(viewHolder.getAdapterPosition()).getBookId();
+
+            final CartBook deletedBook = books.get(viewHolder.getAdapterPosition());
+            final int deletedIndex = viewHolder.getAdapterPosition();
+
+            Snackbar snackbar = Snackbar.make(mainLayout, itemName + " removed from cart!", Snackbar.LENGTH_LONG);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            snackbar.setActionTextColor(getResources().getColor(R.color.colorAccent));
+            snackbar.show();
+        }
     }
 
     private void refreshList() {
