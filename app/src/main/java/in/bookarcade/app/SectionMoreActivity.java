@@ -1,10 +1,10 @@
 package in.bookarcade.app;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -95,7 +95,7 @@ public class SectionMoreActivity extends AppCompatActivity {
                     if (book != null) {
                         books.add(new HomeBook(book.get("title").toString(), book.get("book_id").toString(),
                                 book.get("m_image_url").toString(), book.get("author").toString(), Double.parseDouble(book.get("mrp").toString()),
-                                Double.parseDouble(book.get("price").toString())));
+                                Double.parseDouble(book.get("price").toString()), book.get("s_image_url").toString()));
                     }
 
                 }

@@ -26,7 +26,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -407,7 +406,7 @@ public class HomeFragment extends Fragment {
                             if (book != null) {
                                 books.add(new HomeBook(book.get("title").toString(), book.get("book_id").toString(),
                                         book.get("m_image_url").toString(), book.get("author").toString(), Double.parseDouble(book.get("mrp").toString()),
-                                        Double.parseDouble(book.get("price").toString())));
+                                        Double.parseDouble(book.get("price").toString()), book.get("s_image_url").toString()));
                             }
                         }
                         bookAdapter.setBooks(books);
@@ -441,7 +440,7 @@ public class HomeFragment extends Fragment {
                             if (book != null) {
                                 books2.add(new HomeBook(book.get("title").toString(), book.get("book_id").toString(),
                                         book.get("m_image_url").toString(), book.get("author").toString(), Double.parseDouble(book.get("mrp").toString()),
-                                        Double.parseDouble(book.get("price").toString())));
+                                        Double.parseDouble(book.get("price").toString()), book.get("s_image_url").toString()));
                             }
                         }
                         bookAdapter2.setBooks(books2);
@@ -475,7 +474,7 @@ public class HomeFragment extends Fragment {
                             if (book != null) {
                                 books3.add(new HomeBook(book.get("title").toString(), book.get("book_id").toString(),
                                         book.get("m_image_url").toString(), book.get("author").toString(), Double.parseDouble(book.get("mrp").toString()),
-                                        Double.parseDouble(book.get("price").toString())));
+                                        Double.parseDouble(book.get("price").toString()), book.get("m_image_url").toString()));
                             }
                         }
                         bookAdapter3.setBooks(books3);

@@ -3,10 +3,11 @@ package in.bookarcade.app.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.media.Image;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -15,21 +16,30 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import in.bookarcade.app.BookActivity;
 import in.bookarcade.app.R;
 import in.bookarcade.app.model.HomeBook;
-import in.bookarcade.app.model.Section;
 import in.bookarcade.app.utils.UniversalImageLoader;
 
 public class HomeBookAdapter extends RecyclerView.Adapter<HomeBookAdapter.ViewHolder> {
 
     private Context context;
     private List<HomeBook> books;
+
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private FirebaseUser mUser;
 
     public HomeBookAdapter(Context context) {
         this.context = context;
@@ -38,6 +48,9 @@ public class HomeBookAdapter extends RecyclerView.Adapter<HomeBookAdapter.ViewHo
 
     public void setBooks(List<HomeBook> books) {
         this.books = books;
+        this.mAuth = FirebaseAuth.getInstance();
+        this.db = FirebaseFirestore.getInstance();
+        this.mUser = mAuth.getCurrentUser();
         notifyDataSetChanged();
         ImageLoader.getInstance().init(new UniversalImageLoader(context).getDefaultConfig());
     }
@@ -80,7 +93,37 @@ public class HomeBookAdapter extends RecyclerView.Adapter<HomeBookAdapter.ViewHo
             this.btn_options.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, "Options for " + books.get(getAdapterPosition()).getBookTitle(), Toast.LENGTH_SHORT).show();
+                    PopupMenu popupMenu = new PopupMenu(context, btn_options);
+                    popupMenu.inflate(R.menu.home_book_menu);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.menu_cart:
+                                    Toast.makeText(context, "Added to Cart", Toast.LENGTH_SHORT).show();
+
+                                    HomeBook clickedBook = books.get(getAdapterPosition());
+
+                                    Map<String, Object> cartBook = new HashMap<>();
+                                    cartBook.put("title", clickedBook.getBookTitle());
+                                    cartBook.put("book_id", clickedBook.getBookId());
+                                    cartBook.put("author", clickedBook.getBookAuthor());
+                                    cartBook.put("mrp", clickedBook.getBookMrp());
+                                    cartBook.put("price", clickedBook.getBookPrice());
+                                    cartBook.put("s_image_url", clickedBook.getSImageUrl());
+
+                                    db.collection("users").document(Objects.requireNonNull(mUser.getEmail())).collection("cart").document(clickedBook.getBookId()).set(cartBook);
+                                    return true;
+                                case R.id.menu_wishlist:
+
+                                    return true;
+
+                                default:
+                                    return false;
+                            }
+                        }
+                    });
+                    popupMenu.show();
                 }
             });
         }

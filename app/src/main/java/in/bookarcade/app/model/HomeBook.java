@@ -8,14 +8,24 @@ public class HomeBook {
     private String book_author;
     private double book_mrp;
     private double book_price;
+    private String s_image_url;
 
-    public HomeBook(String book_title, String book_id, String image_url, String book_author, double book_mrp, double book_price) {
+    public HomeBook(String book_title, String book_id, String image_url, String book_author, double book_mrp, double book_price, String s_image_url) {
         this.book_title = book_title;
         this.book_id = book_id;
         this.image_url = image_url;
         this.book_author = book_author;
         this.book_mrp = book_mrp;
+        this.s_image_url = s_image_url;
         this.book_price = book_price;
+    }
+
+    public String getSImageUrl() {
+        return s_image_url;
+    }
+
+    public void setSImageUrl(String s_image_url) {
+        this.s_image_url = s_image_url;
     }
 
     public String getBookTitle() {
