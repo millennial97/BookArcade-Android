@@ -1,10 +1,12 @@
 package in.bookarcade.app;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -17,16 +19,20 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import in.bookarcade.app.orders.PurchaseOrderDetailsActivity;
 import in.bookarcade.app.utils.UniversalImageLoader;
 
 public class PurchaseActivity extends AppCompatActivity {
@@ -34,8 +40,9 @@ public class PurchaseActivity extends AppCompatActivity {
     //Java built-in types
     private static final int ADD_ADDRESS = 1;
     private static final int CHANGE_ADDRESS = 2;
-    private double total, cart_total, shipping, discount, mrp;
-    private String name, address1, address2, city, pincode, landmark, phone, state = "Karnataka";
+    private double total, cart_total, shipping, discount, mrp, price;
+    private String name, address1, address2, city = "Bangalore", pincode, landmark, phone, state = "Karnataka";
+    private String book_id, title, author, publisher, image_url;
 
     //Android widgets
     private Button btn_add, btn_change, btn_proceed;
@@ -76,6 +83,12 @@ public class PurchaseActivity extends AppCompatActivity {
         actionBar.setTitle("Buy " + intent.getStringExtra("title"));
         cart_total = intent.getDoubleExtra("price", 0.0);
         mrp = intent.getDoubleExtra("mrp", 0.0);
+        mrp = intent.getDoubleExtra("price", 0.0);
+        book_id = intent.getStringExtra("book_id");
+        title = intent.getStringExtra("title");
+        author = intent.getStringExtra("author");
+        publisher = intent.getStringExtra("publisher");
+        image_url = intent.getStringExtra("image_url");
     }
 
     private void initViews() {
@@ -124,6 +137,74 @@ public class PurchaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivityForResult(new Intent(PurchaseActivity.this, SelectAddressActivity.class), CHANGE_ADDRESS);
+            }
+        });
+
+        btn_proceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(PurchaseActivity.this);
+                builder.setTitle("Confirm Order Details");
+                builder.setMessage("Order total: " + getString(R.string.rupee_symbol) + total);
+                builder.setNegativeButton("Cancel", null);
+                builder.setPositiveButton("Place Order", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+//                        OrderAddress order_address = new OrderAddress(name, address1, address2, landmark, phone, pincode, city, state);
+                        Map<String, String> order_address = new HashMap<>();
+                        order_address.put("name", name);
+                        order_address.put("address1", address1);
+                        order_address.put("address2", address2);
+                        order_address.put("landmark", landmark);
+                        order_address.put("phone", phone);
+                        order_address.put("pincode", pincode);
+                        order_address.put("city", city);
+                        order_address.put("state", state);
+
+                        final String order_id = new java.sql.Timestamp(System.currentTimeMillis()).getTime() + "_" + mUser.getUid();
+
+                        Map<String, Object> order = new HashMap<>();
+                        order.put("email", mUser.getEmail());
+                        order.put("uid", mUser.getUid());
+                        order.put("status", "PENDING");
+                        order.put("payment_method", "COD");
+                        order.put("shipping_address", order_address);
+                        order.put("shipping_charges", shipping);
+                        order.put("order_total", total);
+                        order.put("ordered_at", Timestamp.now());
+                        order.put("order_id", order_id);
+
+                        final Map<String, Object> book = new HashMap<>();
+                        book.put("book_id", book_id);
+                        book.put("title", title);
+                        book.put("author", author);
+                        book.put("publisher", publisher);
+                        book.put("m_image_url", image_url);
+                        book.put("quantity", 1);
+                        book.put("mrp", mrp);
+                        book.put("price", price);
+
+                        db.collection("buy_orders").document(order_id).set(order).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                db.collection("buy_orders").document(order_id).collection("books").document(book_id).set(book)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Intent i = new Intent(PurchaseActivity.this, PurchaseOrderDetailsActivity.class);
+                                                i.putExtra("order_id", order_id);
+                                                startActivity(i);
+                                                finish();
+                                            }
+                                        });
+
+                            }
+                        });
+
+                    }
+                });
+                builder.show();
             }
         });
     }
@@ -209,11 +290,11 @@ public class PurchaseActivity extends AppCompatActivity {
 
     private void mainInit() {
 
-        tv_book_title.setText(intent.getStringExtra("title"));
-        tv_book_author.setText(intent.getStringExtra("author"));
-        tv_book_publisher.setText(intent.getStringExtra("publisher"));
+        tv_book_title.setText(title);
+        tv_book_author.setText(author);
+        tv_book_publisher.setText(publisher);
         tv_mrp.setText(getString(R.string.rupee_symbol) + mrp);
-        UniversalImageLoader.setImage(intent.getStringExtra("image_url"), img_book, null);
+        UniversalImageLoader.setImage(image_url, img_book, null);
 
         db.collection("android_v1_0_0").document("values").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -223,7 +304,9 @@ public class PurchaseActivity extends AppCompatActivity {
                     tv_eta.setText(values.get("eta").toString());
                     shipping = Double.parseDouble(values.get("shipping_charges").toString());
                     tv_shipping.setText(getString(R.string.rupee_symbol) + shipping);
-                    tv_total.setText(getString(R.string.rupee_symbol) + (cart_total + shipping));
+
+                    total = cart_total + shipping;
+                    tv_total.setText(getString(R.string.rupee_symbol) + total);
                 }
             }
         });

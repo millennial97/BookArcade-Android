@@ -1,4 +1,4 @@
-package in.bookarcade.app;
+package in.bookarcade.app.orders;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
+
+import in.bookarcade.app.R;
 
 public class PurchaseOrderDetailsActivity extends AppCompatActivity {
 

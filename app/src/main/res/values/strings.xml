@@ -160,4 +160,9 @@
         <item>11 Months (330 days)</item>
         <item>12 Months (360 days)</item>
     </string-array>
+    <string name="title_activity_orders">Your Orders</string>
+    <string name="purchases">Purchases</string>
+    <string name="rentals">Rentals</string>
+    <string name="packages">Packages</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
